@@ -1,14 +1,12 @@
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
-import { PanGestures } from "../features";
+import { PanGestures, ScrollViewInterpolate } from "../features";
 
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
-  return <PanGestures />;
+  return <ScrollViewInterpolate />;
 }
 
 const styles = StyleSheet.create({
