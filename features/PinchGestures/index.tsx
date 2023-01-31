@@ -8,8 +8,6 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-  withSpring,
-  withRepeat,
   useAnimatedGestureHandler,
 } from "react-native-reanimated";
 import { styles } from "./styles";

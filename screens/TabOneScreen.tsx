@@ -1,12 +1,12 @@
 import { StyleSheet } from "react-native";
 
 import { RootTabScreenProps } from "../types";
-import { PinchGestures } from "../features";
+import { DoubleTap } from "../features";
 
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
-  return <PinchGestures />;
+  return <DoubleTap />;
 }
 
 const styles = StyleSheet.create({
