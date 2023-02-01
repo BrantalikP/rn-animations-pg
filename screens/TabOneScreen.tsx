@@ -1,12 +1,12 @@
 import { StyleSheet } from "react-native";
 
 import { RootTabScreenProps } from "../types";
-import { DoubleTap } from "../features";
+import { ScrollPan } from "../features";
 
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
-  return <DoubleTap />;
+  return <ScrollPan />;
 }
 
 const styles = StyleSheet.create({
