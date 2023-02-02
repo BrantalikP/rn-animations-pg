@@ -6,3 +6,4 @@ export * from "./PinchGestures";
 export * from "./DoubleTap";
 export * from "./Scroll+Pan";
 export * from "./ColorPicker";
+export * from "./CircularProgressBar";
