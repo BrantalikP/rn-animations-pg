@@ -1,12 +1,12 @@
 import { StyleSheet } from "react-native";
 
 import { RootTabScreenProps } from "../types";
-import { ScrollPan } from "../features";
+import { ColorPicker } from "../features";
 
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
-  return <ScrollPan />;
+  return <ColorPicker />;
 }
 
 const styles = StyleSheet.create({
