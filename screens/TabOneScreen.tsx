@@ -1,11 +1,9 @@
-import { StyleSheet } from "react-native";
-
 import { RootTabScreenProps } from "../types";
-import { CircularProgressBar } from "../features";
-import { FlatList } from "../features/Flatlist";
+import { GestureHandler2 } from "../features/GestureHandler2";
+import { ColorPicker } from "../features";
 
 export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
-  return <FlatList />;
+  return <ColorPicker />;
 }
