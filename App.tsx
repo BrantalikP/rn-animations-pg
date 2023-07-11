@@ -6,6 +6,7 @@ import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import TabOneScreen from "./screens/TabOneScreen";
 import { GridMagnification } from "./features/GridMagnificationSkia";
+import { BottomSheet } from "./features/BottomSheet";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -16,8 +17,7 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <GridMagnification />
-        <StatusBar />
+        <BottomSheet />
       </SafeAreaProvider>
     );
   }
