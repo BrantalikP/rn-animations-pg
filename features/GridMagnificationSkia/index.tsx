@@ -1,4 +1,4 @@
-import { View, Text, Dimensions } from "react-native";
+import { View } from "react-native";
 import React from "react";
 
 import { styles } from "./styles";
@@ -8,22 +8,41 @@ import {
   Rect,
   RoundedRect,
   SweepGradient,
+  runTiming,
+  useTouchHandler,
+  useValue,
   vec,
 } from "@shopify/react-native-skia";
 import { RoundedItem } from "./rounded-item";
-
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
-const SQUARE_AMOUNT_HORIZONTAL = 10;
-const SQUARE_CONTAINER_SIZE = SCREEN_WIDTH / SQUARE_AMOUNT_HORIZONTAL;
-const SQUARE_AMOUNT_VERTICAL =
-  Math.floor(SCREEN_HEIGHT / SQUARE_CONTAINER_SIZE) - 3;
-const PADDING = 10;
-const SQUARE_SIZE = SQUARE_CONTAINER_SIZE - PADDING;
-
-const CANVAS_WIDTH = SCREEN_WIDTH;
-const CANVAS_HEIGHT = SQUARE_AMOUNT_VERTICAL * SQUARE_CONTAINER_SIZE;
+import {
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  PADDING,
+  SQUARE_AMOUNT_HORIZONTAL,
+  SQUARE_AMOUNT_VERTICAL,
+  SQUARE_CONTAINER_SIZE,
+  SQUARE_SIZE,
+} from "./constants";
 
 const GridMagnification = () => {
+  const touchedPoint = useValue<{ x: number; y: number } | null>(null);
+
+  const progress = useValue(0);
+
+  const touchHandler = useTouchHandler({
+    onStart: (event) => {
+      runTiming(progress, 1, { duration: 300 });
+      touchedPoint.current = { x: event.x, y: event.y };
+    },
+    onActive: (event) => {
+      touchedPoint.current = { x: event.x, y: event.y };
+    },
+    onEnd: (event) => {
+      runTiming(progress, 0, { duration: 300 });
+      touchedPoint.current = null;
+    },
+  });
+
   return (
     <View style={styles.container}>
       <Canvas
@@ -31,12 +50,15 @@ const GridMagnification = () => {
           height: CANVAS_HEIGHT,
           width: CANVAS_WIDTH,
         }}
+        onTouch={touchHandler}
       >
         <Group>
           {new Array(SQUARE_AMOUNT_HORIZONTAL).fill(0).map((_, i) => {
             return new Array(SQUARE_AMOUNT_VERTICAL).fill(0).map((_, j) => {
               return (
                 <RoundedItem
+                  progress={progress}
+                  point={touchedPoint}
                   key={`${i + j}`}
                   x={i * SQUARE_CONTAINER_SIZE + PADDING / 2}
                   y={j * SQUARE_CONTAINER_SIZE + PADDING / 2}
