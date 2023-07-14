@@ -7,6 +7,7 @@ import Navigation from "./navigation";
 import TabOneScreen from "./screens/TabOneScreen";
 import { GridMagnification } from "./features/GridMagnificationSkia";
 import { BottomSheet } from "./features/BottomSheet";
+import { Metaball } from "./features/Metaball";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -17,7 +18,7 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <BottomSheet />
+        <Metaball />
       </SafeAreaProvider>
     );
   }
