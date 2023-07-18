@@ -3,7 +3,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 
-import { LottieAstrounaut } from "./features/LottieAstronaut";
+import { Animated3DCard } from "./features/Animated3DCard";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -14,7 +14,7 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <LottieAstrounaut />
+        <Animated3DCard />
       </SafeAreaProvider>
     );
   }
