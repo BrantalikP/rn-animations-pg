@@ -1,10 +1,13 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { styles } from "./styles";
 import Animated, {
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
 import { OFFSET, SPACING } from "../../styles";
+import { useNavigation } from "expo-router";
+import { Link } from "expo-router";
+import { router } from "expo-router";
 
 export interface IItem {
   item: {
@@ -18,6 +21,8 @@ export interface IItem {
   itemHeight?: Animated.SharedValue<number>;
 }
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 const Item = ({
   item,
   scrollY,
@@ -25,6 +30,7 @@ const Item = ({
   itemHeight = { value: 0 },
   index,
 }: IItem) => {
+  const { navigate } = useNavigation();
   const stylez = useAnimatedStyle(() => {
     const opacity = interpolate(
       scrollY.value,
@@ -47,18 +53,21 @@ const Item = ({
       [itemY.value - 1, itemY.value, itemY.value + itemHeight.value],
       [1, 1, 0]
     );
+
+    const perspective = [itemHeight.value ? { perspective: 0 } : undefined];
+
     return {
       opacity,
       transform: [
-        { perspective: itemHeight.value * 4 },
         { translateY },
         { scale },
+        { perspective: itemHeight.value ? itemHeight.value * 4 : 1 },
       ],
     };
   });
 
   return (
-    <Animated.View
+    <AnimatedPressable
       style={[
         {
           backgroundColor: item.color,
@@ -71,9 +80,10 @@ const Item = ({
         },
         stylez,
       ]}
+      onPress={() => router.push("/anim/bottom-sheet")}
     >
       <Text>{item.color}</Text>
-    </Animated.View>
+    </AnimatedPressable>
   );
 };
 
