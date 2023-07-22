@@ -1,7 +1,9 @@
 import { StyleSheet } from "react-native";
 import Constants from "expo-constants";
 
-const SPACING = 10;
+export const SPACING = 10;
+
+export const OFFSET = 0;
 
 export const styles = StyleSheet.create({
   container: {
