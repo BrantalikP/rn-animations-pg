@@ -1,10 +1,11 @@
-import { View, Text, Animated, FlatList, StatusBar } from "react-native";
+import { View, Text, FlatList, StatusBar } from "react-native";
 import { styles } from "./styles";
 import { Item } from "./components/Item";
-import {
+import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from "react-native-reanimated";
+import { CustomCellRendererComponent } from "./components/CustomCellRendererComponent";
 
 interface IAnimatedList {
   data: { key: string; color: string; height: number }[];
@@ -17,10 +18,8 @@ const AnimatedFlatList = Animated.createAnimatedComponent(
 const AnimatedList = ({ data }: IAnimatedList) => {
   const scrollY = useSharedValue(0);
 
-  const onScroll = useAnimatedScrollHandler((event) => {
-    "worklet";
-    // Update the scrollY value with the current scroll offset
-    scrollY.value = event.contentOffset.y;
+  const onScroll = useAnimatedScrollHandler((ev) => {
+    scrollY.value = ev.contentOffset.y;
   });
   return (
     <View style={styles.container}>
@@ -28,9 +27,9 @@ const AnimatedList = ({ data }: IAnimatedList) => {
       <AnimatedFlatList
         data={data}
         keyExtractor={(item) => item.key}
-        // onScroll={onScroll}
+        onScroll={onScroll}
         scrollEventThrottle={16}
-        // CellRendererComponent={CustomCellRendererComponent}
+        CellRendererComponent={CustomCellRendererComponent}
         renderItem={({ item, index }) => {
           return <Item item={item} index={index} scrollY={scrollY} />;
         }}
