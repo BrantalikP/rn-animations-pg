@@ -8,12 +8,10 @@ import { OFFSET, SPACING } from "../../styles";
 import { useNavigation } from "expo-router";
 import { Link } from "expo-router";
 import { router } from "expo-router";
+import { data } from "@/features/home/screens/presets";
 
 export interface IItem {
-  item: {
-    id: string;
-    name: string;
-  };
+  item: (typeof data)[number];
   index: number;
   scrollY: Animated.SharedValue<number>;
   itemY?: Animated.SharedValue<number>;

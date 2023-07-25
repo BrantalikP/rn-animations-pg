@@ -6,9 +6,10 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import { CustomCellRendererComponent } from "./components/CustomCellRendererComponent";
+import { DataIds, data } from "@/features/home/screens/presets";
 
 interface IAnimatedList {
-  data: { id: string; name: string }[];
+  data: typeof data;
 }
 
 const AnimatedFlatList = Animated.createAnimatedComponent(
