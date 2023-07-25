@@ -4,6 +4,7 @@ import { styles } from "./styles";
 import chroma from "chroma-js";
 import { AnimatedList } from "@/features/animations/AnimatedList";
 import { faker } from "@faker-js/faker";
+import { data } from "./presets";
 
 const colors = chroma.scale(["#fafa6e", "#2A4858"]).mode("lch").colors(30);
 
@@ -21,7 +22,7 @@ const _data = colors.map((color) => {
 interface IHome {}
 
 const Home = ({}: IHome) => {
-  return <AnimatedList data={_data} />;
+  return <AnimatedList data={data} />;
 };
 
 export { Home };

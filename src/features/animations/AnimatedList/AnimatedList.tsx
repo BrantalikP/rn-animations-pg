@@ -8,7 +8,7 @@ import Animated, {
 import { CustomCellRendererComponent } from "./components/CustomCellRendererComponent";
 
 interface IAnimatedList {
-  data: { key: string; color: string; height: number }[];
+  data: { id: string; name: string }[];
 }
 
 const AnimatedFlatList = Animated.createAnimatedComponent(
@@ -26,7 +26,7 @@ const AnimatedList = ({ data }: IAnimatedList) => {
       <StatusBar hidden />
       <AnimatedFlatList
         data={data}
-        keyExtractor={(item) => item.key}
+        keyExtractor={(item) => item.id}
         onScroll={onScroll}
         scrollEventThrottle={16}
         CellRendererComponent={CustomCellRendererComponent}

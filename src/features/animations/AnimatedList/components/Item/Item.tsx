@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from "react-native";
-import { styles } from "./styles";
+import { HEIGHT, styles } from "./styles";
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -11,9 +11,8 @@ import { router } from "expo-router";
 
 export interface IItem {
   item: {
-    key: string;
-    color: string;
-    height: number;
+    id: string;
+    name: string;
   };
   index: number;
   scrollY: Animated.SharedValue<number>;
@@ -70,9 +69,9 @@ const Item = ({
     <AnimatedPressable
       style={[
         {
-          backgroundColor: item.color,
+          backgroundColor: "#fafa6e",
           marginBottom: SPACING,
-          height: item.height,
+          height: HEIGHT,
           padding: SPACING,
           borderRadius: 16,
           justifyContent: "flex-end",
@@ -80,9 +79,9 @@ const Item = ({
         },
         stylez,
       ]}
-      onPress={() => router.push("/anim/bottom-sheet")}
+      onPress={() => router.push(`/anim/${item.id}`)}
     >
-      <Text>{item.color}</Text>
+      <Text>{item.name}</Text>
     </AnimatedPressable>
   );
 };
