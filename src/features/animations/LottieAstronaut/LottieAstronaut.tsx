@@ -25,7 +25,7 @@ export const LottieAstrounaut = () => {
       <AnimatedWrapper
         showAnimation={items.length === 0}
         title="Add new item ➕"
-        source={require("../../assets/lottie/astronaut.json")}
+        source={require("./assets/astronaut.json")}
         loop
         autoPlay
       >
@@ -43,7 +43,7 @@ export const LottieAstrounaut = () => {
       </AnimatedWrapper>
       <TouchableOpacity style={styles.floatingButton} onPress={onAdd}>
         <LottieView
-          source={require("../../assets/lottie/add.json")}
+          source={require("./assets/add.json")}
           style={{ flex: 1 }}
           ref={buttonRef}
           speed={3}
