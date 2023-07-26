@@ -1,10 +1,11 @@
-import { Dimensions, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useCallback, useEffect, useImperativeHandle } from "react";
 import { SCREEN_HEIGHT, styles } from "./styles";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   Extrapolate,
   interpolate,
+  useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -78,13 +79,40 @@ const BottomSheetView = React.forwardRef<
     };
   });
 
+  const rBackdropStyle = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(active.value ? 1 : 0),
+    };
+  }, []);
+
+  const rBackdropProps = useAnimatedProps(() => {
+    return {
+      PointerEvents: active.value ? "auto" : "none",
+    } as any;
+  }, []);
+
   return (
-    <GestureDetector gesture={gesture}>
-      <Animated.View style={[styles.container, rBottomSheetStyle]}>
-        <View style={styles.line} />
-        {children}
-      </Animated.View>
-    </GestureDetector>
+    <>
+      <Animated.View
+        animatedProps={rBackdropProps}
+        onTouchStart={() => {
+          scrollTo(0);
+        }}
+        style={[
+          {
+            ...StyleSheet.absoluteFillObject,
+            backgroundColor: "rgba(0,0,0,0.5)",
+          },
+          rBackdropStyle,
+        ]}
+      />
+      <GestureDetector gesture={gesture}>
+        <Animated.View style={[styles.container, rBottomSheetStyle]}>
+          <View style={styles.line} />
+          {children}
+        </Animated.View>
+      </GestureDetector>
+    </>
   );
 });
 
