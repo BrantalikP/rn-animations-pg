@@ -41,7 +41,8 @@
     "react-native-screens": "~3.22.0",
     "react-native-skia-gesture": "^0.1.172",
     "react-native-svg": "13.9.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "ts-pattern": "^5.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -15,6 +15,8 @@ const { width, height } = Dimensions.get("window");
 const CIRCLE_LENGTH = 1000; // 2 * MATH.PI * Radius
 const R = CIRCLE_LENGTH / (2 * Math.PI);
 
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+
 export const CircularProgressBar = () => {
   const progress = useSharedValue(0);
 
@@ -30,7 +32,6 @@ export const CircularProgressBar = () => {
     progress.value = withTiming(progress.value > 0 ? 0 : 1, { duration: 2000 });
   }, []);
 
-  const AnimatedCircle = Animated.createAnimatedComponent(Circle);
   return (
     <View style={styles.container}>
       <ReText style={styles.progressText} text={progressText} />

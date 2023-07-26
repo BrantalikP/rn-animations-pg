@@ -6,9 +6,10 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import { CustomCellRendererComponent } from "./components/CustomCellRendererComponent";
+import { DataIds, data } from "@/features/home/screens/presets";
 
 interface IAnimatedList {
-  data: { key: string; color: string; height: number }[];
+  data: typeof data;
 }
 
 const AnimatedFlatList = Animated.createAnimatedComponent(
@@ -26,7 +27,7 @@ const AnimatedList = ({ data }: IAnimatedList) => {
       <StatusBar hidden />
       <AnimatedFlatList
         data={data}
-        keyExtractor={(item) => item.key}
+        keyExtractor={(item) => item.id}
         onScroll={onScroll}
         scrollEventThrottle={16}
         CellRendererComponent={CustomCellRendererComponent}
