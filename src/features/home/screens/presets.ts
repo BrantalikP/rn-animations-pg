@@ -18,6 +18,7 @@ export const data = [
   { id: "scrollPan", name: "Scroll Pan" },
   { id: "scrollViewInterpolate", name: "Scroll View Interpolate" },
   { id: "themeSwitch", name: "Theme Switch" },
+  { id: "clipBackground", name: "Clip Background" },
 ] as const;
 
 export type DataIds = (typeof data)[number]["id"];

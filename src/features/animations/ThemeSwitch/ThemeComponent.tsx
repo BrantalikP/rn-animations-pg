@@ -1,18 +1,7 @@
 import type { SkiaMutableValue, SkiaValue } from "@shopify/react-native-skia";
-import {
-  Group,
-  Rect,
-  runTiming,
-  Skia,
-  useComputedValue,
-  useFont,
-  useValue,
-  Text,
-  Canvas,
-} from "@shopify/react-native-skia";
+import { Group, Rect, Text } from "@shopify/react-native-skia";
 import { useCallback } from "react";
 
-import Touchable from "react-native-skia-gesture";
 import { APP_TEXT, SQUARE_SIZE, colors } from "./presets";
 import { useTheme } from "./hooks/useTheme";
 import { SelectableCircleContainer } from "./components/SelectableCircle";
@@ -93,7 +82,6 @@ const ThemeComponent = ({ size }: IThemeComponent) => {
           borderColor={colors[index]?.text || "white"}
           index={index}
           onSelect={() => {
-            console.log("kurva");
             onSelectSquare(index);
           }}
         />

@@ -42,7 +42,8 @@
     "react-native-skia-gesture": "^0.1.172",
     "react-native-svg": "13.9.0",
     "react-native-web": "~0.19.6",
-    "ts-pattern": "^5.0.4"
+    "ts-pattern": "^5.0.4",
+    "simplex-noise": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

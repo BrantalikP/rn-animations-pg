@@ -77,7 +77,6 @@ export const useTheme = ({ size }: Props) => {
 
   const onSelectSquare = useCallback(
     (index: number) => {
-      console.log("here");
       if (index === selectedIndex.current) return;
 
       radius.current = 0;

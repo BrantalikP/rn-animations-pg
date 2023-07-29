@@ -21,12 +21,12 @@ import { PinchGestures } from "../animations/PinchGestures";
 import { ScrollPan } from "../animations/Scroll+Pan";
 import { ScrollViewInterpolate } from "../animations/ScrollViewInterpolate";
 import { ThemeSwitch } from "../animations/ThemeSwitch";
+import { ClipBackground } from "../animations/ClipBackground";
 
 interface IPreview {}
 
 const Preview = ({}: IPreview) => {
   const { id } = useLocalSearchParams<{ id: [DataIds] }>();
-  console.log({ id });
   const extractedId: DataIds | undefined = id?.[0];
 
   const AnimationComponent = () =>
@@ -48,13 +48,13 @@ const Preview = ({}: IPreview) => {
       .with("scrollPan", () => <ScrollPan />)
       .with("scrollViewInterpolate", () => <ScrollViewInterpolate />)
       .with("themeSwitch", () => <ThemeSwitch />)
+      .with("clipBackground", () => <ClipBackground />)
 
       .otherwise(() => (
         <View>
           <Text>Not Found</Text>
         </View>
       ));
-  console.log({ AnimationComponent });
 
   return (
     <>
