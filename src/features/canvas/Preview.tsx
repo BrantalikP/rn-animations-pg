@@ -20,6 +20,7 @@ import { PanGestures } from "../animations/PanGestures";
 import { PinchGestures } from "../animations/PinchGestures";
 import { ScrollPan } from "../animations/Scroll+Pan";
 import { ScrollViewInterpolate } from "../animations/ScrollViewInterpolate";
+import { ThemeSwitch } from "../animations/ThemeSwitch";
 
 interface IPreview {}
 
@@ -46,6 +47,7 @@ const Preview = ({}: IPreview) => {
       .with("pinchGesture", () => <PinchGestures />)
       .with("scrollPan", () => <ScrollPan />)
       .with("scrollViewInterpolate", () => <ScrollViewInterpolate />)
+      .with("themeSwitch", () => <ThemeSwitch />)
 
       .otherwise(() => (
         <View>

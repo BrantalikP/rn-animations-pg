@@ -17,6 +17,7 @@ export const data = [
   { id: "pinchGesture", name: "Pinch Gesture" },
   { id: "scrollPan", name: "Scroll Pan" },
   { id: "scrollViewInterpolate", name: "Scroll View Interpolate" },
+  { id: "themeSwitch", name: "Theme Switch" },
 ] as const;
 
 export type DataIds = (typeof data)[number]["id"];
