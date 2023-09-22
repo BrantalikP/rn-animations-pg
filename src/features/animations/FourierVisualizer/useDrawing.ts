@@ -82,5 +82,6 @@ export const useDrawing = () => {
     opacity,
     ref,
     drawPath,
+    isDrawing,
   };
 };
