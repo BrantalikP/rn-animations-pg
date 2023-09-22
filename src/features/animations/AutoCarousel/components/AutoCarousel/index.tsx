@@ -1,37 +1,31 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
-import type {
-  LayoutChangeEvent,
-  NativeScrollEvent,
-} from "react-native";
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import type { LayoutChangeEvent, ScrollViewProps } from "react-native";
 import { View } from "react-native";
 import Animated, {
   runOnJS,
   useAnimatedScrollHandler,
   useSharedValue,
-  Easing,
   withTiming,
-  withDelay,
+  useAnimatedProps,
+  useAnimatedReaction,
 } from "react-native-reanimated";
 
 import { AutoCarouselContext } from "./context";
 import { AutoCarouselSlide } from "../AutoCarouselSlide";
 import { styles } from "./styles";
+import { width } from "@/features/animations/ScrollViewInterpolate/components/Page/styles";
 
 type AutoCarouselProps = {
   interval: number;
   children: JSX.Element | JSX.Element[];
 };
 
+const NOT_INITIALIZED = -1;
+
 const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
   const scrollViewRef = useRef<Animated.ScrollView>(null);
-  const [activeIndex, setActiveIndex] = useState(1);
-  const [userInteracted, setUserInteracted] = useState(false);
-  const [init, setInit] = useState(false);
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
+  const offset = useSharedValue(NOT_INITIALIZED);
   const [slideWidth, setSlideWidth] = useState(0);
 
   const childrenArray = React.Children.toArray(children);
@@ -44,93 +38,96 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
     childrenArray[0],
   ];
 
-  const goToPage = useCallback((page: number, animated = false) => {
-    const to = page * slideWidth;
-    scrollViewRef.current?.scrollTo({ x: to, y: 0, animated });
-  }, []);
+  const goToPage = useCallback(
+    (page: number, animated = false) => {
+      "worklet";
+      const to = page * slideWidth;
+      if (animated) {
+        offset.value = withTiming(to, { duration: 1000 });
+      } else {
+        offset.value = to;
+      }
+    },
+    [slideWidth]
+  );
 
-  console.log(slideWidth);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    if (!init) return;
-    if (userInteracted) return;
-
+  const handleAutoScroll = (offset: number) => {
     const autoScroll = () => {
+      const activeIndex = Math.round((offset / slideWidth) * 10000) / 10000;
       const nextIndex = (activeIndex + 1) % paddedChildrenArray.length;
       goToPage(nextIndex, true);
     };
-    const intervalId = setTimeout(autoScroll, interval);
-
-    if (userInteracted) clearTimeout(intervalId);
-
-    return () => clearTimeout(intervalId);
-  }, [
-    interval,
-    activeIndex,
-    userInteracted,
-    goToPage,
-    paddedChildrenArray.length,
-    init,
-  ]);
-
-  useEffect(() => {
-    // if we are at the last index we need to switch to the second one without animation
-    // second one because the first one is a clone of the last one
-    if (activeIndex === paddedChildrenArray.length - 1) {
-      goToPage(1);
-      setActiveIndex(1);
-    }
-    // if we are at the first index we need to switch to the next to last one without animation
-    // next to last one because the last one is a clone of the first one
-    if (activeIndex === 0) {
-      goToPage(paddedChildrenArray.length - 2);
-      setActiveIndex(paddedChildrenArray.length - 2);
-    }
-  }, [activeIndex, childrenArray.length, goToPage, paddedChildrenArray.length]);
-
-  const previousOffset = useRef(0);
-
-  const onScroll = (event: NativeScrollEvent) => {
-    const { contentOffset } = event;
-
-    // Divide the horizontal offset by the width of the view to see which page is visible
-    let pageNum = 0;
-    if (previousOffset.current <= contentOffset.x) {
-      pageNum = Math.floor(contentOffset.x / slideWidth);
-    } else if (previousOffset.current > contentOffset.x) {
-      pageNum = Math.ceil(contentOffset.x / slideWidth);
-    }
-    previousOffset.current = contentOffset.x;
-    setActiveIndex(pageNum);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(autoScroll, interval);
   };
 
-  const scrollValue = useSharedValue(0);
+  useEffect(() => {
+    if (!autoScrollEnabled && timeoutRef.current) clearTimeout(timeoutRef.current);
+  }, [autoScrollEnabled]);
+
+  useAnimatedReaction(
+    () => offset.value,
+    (offset) => {
+      if (offset === NOT_INITIALIZED) return;
+      if (slideWidth === 0) return;
+      if (offset % 1 !== 0) return;
+      if (!autoScrollEnabled) return;
+      runOnJS(handleAutoScroll)(offset);
+    },
+    [offset.value, slideWidth]
+  );
+
+  useAnimatedReaction(
+    () => offset.value,
+    (offset) => {
+      if (offset === NOT_INITIALIZED) return;
+      const activeIndex = Math.round((offset / slideWidth) * 10000) / 10000;
+      // if we are at the last index we need to switch to the second one without animation
+      // second one because the first one is a clone of the last one
+      if (activeIndex === paddedChildrenArray.length - 1) {
+        goToPage(1);
+      }
+      // if we are at the first index we need to switch to the next to last one without animation
+      // next to last one because the last one is a clone of the first one
+      if (activeIndex === 0) {
+        goToPage(paddedChildrenArray.length - 2);
+      }
+    },
+    [childrenArray.length, goToPage, paddedChildrenArray.length, slideWidth]
+  );
+
+  const scrollValue = useSharedValue(1);
 
   useEffect(() => {
-    // adding some delay to compensate for the circle splash animation delayed start
-    scrollValue.value = withDelay(
-      200,
-      withTiming(
-        1,
-        { duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) },
-        () => runOnJS(setInit)(true)
-      )
-    );
-  }, [scrollValue]);
+    if (slideWidth) goToPage(1, false);
+  }, [slideWidth]);
 
   const scrollHandler = useAnimatedScrollHandler(
     (event) => {
-      if (!init) return;
-      runOnJS(onScroll)(event);
+      if (offset.value === NOT_INITIALIZED) return;
       scrollValue.value = event.contentOffset.x / slideWidth;
+      if (!autoScrollEnabled) {
+        offset.value = event.contentOffset.x;
+      }
     },
-    [slideWidth, init]
+    [slideWidth, autoScrollEnabled]
   );
 
   const onLayout = useCallback((event: LayoutChangeEvent) => {
     const { width } = event.nativeEvent.layout;
     setSlideWidth(width);
   }, []);
+
+  const animatedProps = useAnimatedProps<ScrollViewProps>(() => {
+    return {
+      contentOffset: {
+        x: offset.value,
+        y: 0,
+      },
+    };
+  });
 
   return (
     <AutoCarouselContext.Provider value={{ scrollValue }}>
@@ -139,12 +136,12 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
           ref={scrollViewRef}
           horizontal
           pagingEnabled
-          key={slideWidth}
+          key={width}
           onLayout={onLayout}
-          style={{ borderColor: "red", borderWidth: 1 }}
+          style={{ overflow: "visible" }}
           scrollToOverflowEnabled
-          contentOffset={{ x: slideWidth, y: 0 }}
-          onScrollBeginDrag={() => setUserInteracted(true)}
+          animatedProps={animatedProps}
+          onScrollBeginDrag={() => setAutoScrollEnabled(false)}
           showsHorizontalScrollIndicator={false}
           onScroll={scrollHandler}
           scrollEventThrottle={16}
