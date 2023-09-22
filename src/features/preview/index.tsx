@@ -22,10 +22,11 @@ import { ScrollPan } from "../animations/Scroll+Pan";
 import { ScrollViewInterpolate } from "../animations/ScrollViewInterpolate";
 import { ThemeSwitch } from "../animations/ThemeSwitch";
 import { ClipBackground } from "../animations/ClipBackground";
+import { FourierVisualizer } from "../animations/FourierVisualizer";
 
-interface IPreview {}
+interface IPreview { }
 
-const Preview = ({}: IPreview) => {
+const Preview = ({ }: IPreview) => {
   const { id } = useLocalSearchParams<{ id: [DataIds] }>();
   const extractedId: DataIds | undefined = id?.[0];
 
@@ -49,6 +50,7 @@ const Preview = ({}: IPreview) => {
       .with("scrollViewInterpolate", () => <ScrollViewInterpolate />)
       .with("themeSwitch", () => <ThemeSwitch />)
       .with("clipBackground", () => <ClipBackground />)
+      .with("fourierVisualizer", () => <FourierVisualizer />)
 
       .otherwise(() => (
         <View>

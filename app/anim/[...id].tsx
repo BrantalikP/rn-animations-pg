@@ -1,1 +1,1 @@
-export { Preview as default } from "src/features/canvas/Preview";
+export { Preview as default } from "src/features/preview";
