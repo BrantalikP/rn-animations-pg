@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+
+const { width } = Dimensions.get('window')
 
 export const styles = StyleSheet.create({
   container: {
@@ -6,7 +8,9 @@ export const styles = StyleSheet.create({
     borderColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1
+    borderWidth: 1,
+    width: '100%',
+    height: '80%',
   },
   text: {
     fontSize: 20,
