@@ -20,6 +20,7 @@ export const data = [
   { id: "themeSwitch", name: "Theme Switch" },
   { id: "clipBackground", name: "Clip Background" },
   { id: "fourierVisualizer", name: "Fourier Visualizer" },
+  { id: "autoCarousel", name: "Auto Carousel" },
 ] as const;
 
 export type DataIds = (typeof data)[number]["id"];

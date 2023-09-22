@@ -23,6 +23,7 @@ import { ScrollViewInterpolate } from "../animations/ScrollViewInterpolate";
 import { ThemeSwitch } from "../animations/ThemeSwitch";
 import { ClipBackground } from "../animations/ClipBackground";
 import { FourierVisualizer } from "../animations/FourierVisualizer";
+import { AutoCarouselExample } from "../animations/AutoCarousel";
 
 interface IPreview { }
 
@@ -51,6 +52,7 @@ const Preview = ({ }: IPreview) => {
       .with("themeSwitch", () => <ThemeSwitch />)
       .with("clipBackground", () => <ClipBackground />)
       .with("fourierVisualizer", () => <FourierVisualizer />)
+      .with("autoCarousel", () => <AutoCarouselExample />)
 
       .otherwise(() => (
         <View>
