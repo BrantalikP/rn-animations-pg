@@ -19,6 +19,7 @@ export const data = [
   { id: "scrollViewInterpolate", name: "Scroll View Interpolate" },
   { id: "themeSwitch", name: "Theme Switch" },
   { id: "clipBackground", name: "Clip Background" },
+  { id: "fourierVisualizer", name: "Fourier Visualizer" },
 ] as const;
 
 export type DataIds = (typeof data)[number]["id"];

@@ -1,17 +1,20 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Canvas, Path } from "@shopify/react-native-skia";
-import { Text, View } from "react-native";
+
 import {
   GestureDetector,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
+import { FourierVisualizerComp } from "./Components/FourierVisualizerComp";
 import { PressableScale } from "./Components/PressableScale";
 import { styles } from "./styles";
 import { useDrawing } from "./useDrawing";
+
 export const FourierVisualizer = () => {
   const { rClearButton, isDrawing, ref, drawPath, opacity, panGesture } =
     useDrawing();
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <GestureDetector gesture={panGesture}>
@@ -23,6 +26,7 @@ export const FourierVisualizer = () => {
               style={"stroke"}
               opacity={opacity}
             />
+            <FourierVisualizerComp ref={ref} strokeWidth={5} />
           </Canvas>
         </Animated.View>
       </GestureDetector>

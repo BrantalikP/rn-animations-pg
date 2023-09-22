@@ -8,6 +8,7 @@ import {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
+import { FourierVisualizerRefType } from "./Components/FourierVisualizerComp";
 
 export const useDrawing = () => {
   // Shared value to represent the drawn path.
@@ -18,8 +19,8 @@ export const useDrawing = () => {
     // Usualy it shouldn't be necessary to define the ref type manually.
     // But I was getting this TypeError on Fast Refresh:
     // TypeError: Cannot assign to read-only property 'current', js engine: hermes
-    clear: () => {},
-    draw: () => {},
+    clear: () => { },
+    draw: () => { },
   });
 
   // Opacity value for animation.
