@@ -27,7 +27,8 @@ const NOT_INITIALIZED = -1;
 const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
   const scrollViewRef = useRef<Animated.ScrollView>(null);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
-  const offset = useSharedValue(NOT_INITIALIZED);
+  const offset = useSharedValue({ value: NOT_INITIALIZED });
+  const scrollValue = useSharedValue(0);
   const [init, setInit] = useState(false);
   const [slideWidth, setSlideWidth] = useState(0);
 
@@ -46,9 +47,9 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
       "worklet";
       const to = page * slideWidth;
       if (animated) {
-        offset.value = withTiming(to, { duration: 1000 });
+        offset.value = withTiming<{ value: number }>({ value: to }, { duration: 1000 })
       } else {
-        offset.value = to;
+        offset.value = { value: to }
       }
     },
     [slideWidth]
@@ -56,10 +57,11 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleAutoScroll = (offset: number) => {
+  const handleAutoScroll = () => {
     const autoScroll = () => {
-      const activeIndex = Math.round((offset / slideWidth) * 10000) / 10000;
-      const nextIndex = (activeIndex + 1) % paddedChildrenArray.length;
+      const offset = scrollValue.value;
+      const activeIndex = Math.round((offset) * 10000) / 10000;
+      const nextIndex = activeIndex + 1
       goToPage(nextIndex, true);
     };
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -68,25 +70,29 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
 
   useEffect(() => {
     if (!autoScrollEnabled && timeoutRef.current) clearTimeout(timeoutRef.current);
+    return () => {
+      if (!timeoutRef.current) return;
+      clearTimeout(timeoutRef.current)
+    }
   }, [autoScrollEnabled]);
 
   useAnimatedReaction(
-    () => offset.value,
+    () => scrollValue.value,
     (offset) => {
       if (!init) return;
       if (slideWidth === 0) return;
       if (offset % 1 !== 0) return;
       if (!autoScrollEnabled) return;
-      runOnJS(handleAutoScroll)(offset);
+      runOnJS(handleAutoScroll)();
     },
-    [offset.value, slideWidth, init]
+    [scrollValue.value, slideWidth, init, autoScrollEnabled]
   );
 
   useAnimatedReaction(
-    () => offset.value,
+    () => scrollValue.value,
     (offset) => {
       if (!init) return;
-      const activeIndex = Math.round((offset / slideWidth) * 10000) / 10000;
+      const activeIndex = Math.round((offset) * 10000) / 10000;
       // if we are at the last index we need to switch to the second one without animation
       // second one because the first one is a clone of the last one
       if (activeIndex === paddedChildrenArray.length - 1) {
@@ -98,10 +104,8 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
         goToPage(paddedChildrenArray.length - 2);
       }
     },
-    [childrenArray.length, goToPage, paddedChildrenArray.length, slideWidth, init]
+    [childrenArray.length, goToPage, paddedChildrenArray.length, slideWidth, init, scrollValue.value]
   );
-
-  const scrollValue = useSharedValue(0);
 
   useEffect(() => {
     if (slideWidth) goToPage(1, false);
@@ -111,9 +115,6 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
     (event) => {
       if (!init) return;
       scrollValue.value = event.contentOffset.x / slideWidth;
-      if (!autoScrollEnabled) {
-        offset.value = event.contentOffset.x;
-      }
     },
     [slideWidth, autoScrollEnabled, init]
   );
@@ -126,11 +127,11 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
   const animatedProps = useAnimatedProps<ScrollViewProps>(() => {
     return {
       contentOffset: {
-        x: offset.value,
+        x: offset.value.value,
         y: 0,
       },
     };
-  });
+  }, [offset.value, scrollValue.value]);
 
   useEffect(() => {
     scrollValue.value = withDelay(
@@ -153,7 +154,9 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
           style={{ overflow: "visible" }}
           scrollToOverflowEnabled
           animatedProps={animatedProps}
-          onScrollBeginDrag={() => setAutoScrollEnabled(false)}
+          onScrollBeginDrag={() => {
+            setAutoScrollEnabled(false)
+          }}
           showsHorizontalScrollIndicator={false}
           onScroll={scrollHandler}
           scrollEventThrottle={16}
