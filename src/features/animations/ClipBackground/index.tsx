@@ -127,7 +127,6 @@ export const ClipBackground = () => {
               r={30}
               color={PRIMARY_COLOR}
               onEnd={() => {
-                console.log("lightTheme");
                 runTiming(progressRadius, { to: 0 }, { duration: 1000 });
               }}
             />

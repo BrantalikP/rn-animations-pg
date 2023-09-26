@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, SafeAreaView } from "react-native";
 import AutoCarousel from "./components/AutoCarousel";
 import { styles } from "./styles";
 import { useAutoCarouselSlideIndex } from "./components/AutoCarouselSlide/context";
@@ -11,11 +11,15 @@ const Slide = ({
   scaleScrollStartOffset = 0,
   opacityStartOffset = 0.5,
   opacityValue = 0.4,
+  headline,
+  paragraph
 }: {
   scaleValue?: number;
   scaleScrollStartOffset?: number;
   opacityStartOffset?: number;
   opacityValue?: number;
+  headline: string;
+  paragraph: string;
 }) => {
   const { index, total } = useAutoCarouselSlideIndex();
   const { scrollValue } = useAutoCarouselContext();
@@ -43,19 +47,22 @@ const Slide = ({
 
   return (
     <Animated.View style={[styles.container, animatedStyle]}>
-      <Text style={styles.text}>Slide {index}</Text>
+      <Animated.Text style={styles.headline}>{headline}</Animated.Text>
+      <Animated.Text style={styles.text}>{paragraph}</Animated.Text>
     </Animated.View>
   );
 };
 
 export const AutoCarouselExample = () => {
   return (
-    <View style={{ flex: 1, padding: 16 }}>
-      <AutoCarousel interval={5000}>
-        <Slide />
-        <Slide />
-        <Slide />
-      </AutoCarousel>
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, padding: 16 }}>
+        <AutoCarousel interval={5000}>
+          <Slide headline="First headline" paragraph="This is the first slide"/>
+          <Slide headline="Second headline" paragraph="This is the second slide"/>
+          <Slide headline="Third headline" paragraph="This is the third slide" />
+        </AutoCarousel>
+      </View>
+    </SafeAreaView>
   );
 };
