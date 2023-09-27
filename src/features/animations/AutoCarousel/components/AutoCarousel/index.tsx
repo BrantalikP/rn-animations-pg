@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import type { LayoutChangeEvent, ScrollViewProps } from "react-native";
+import type { ScrollViewProps } from "react-native";
 import { Dimensions, View } from "react-native";
 import Animated, {
   runOnJS,
@@ -19,10 +19,9 @@ type AutoCarouselProps = {
   children: JSX.Element | JSX.Element[];
 };
 
-const NOT_INITIALIZED = -1;
-
-function customRound(number: number, precision = 0.002) {
-  'worklet'
+// Sometimes the calculation between slide width and scroll offset is not precise
+const customRound = (number: number, precision = 0.002) => {
+  "worklet";
   // Find the difference between the number and its nearest integer value
   const rounded = Math.round(number);
   const difference = Math.abs(number - rounded);
@@ -34,7 +33,7 @@ function customRound(number: number, precision = 0.002) {
 
   // If the difference is greater than the precision, return the original number
   return number;
-}
+};
 
 const { width: slideWidth } = Dimensions.get("window");
 
@@ -59,6 +58,7 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
       "worklet";
       const to = page * slideWidth;
       if (animated) {
+        // this is animation triggered for auto scrolling
         offset.value = withTiming<{ value: number }>(
           { value: to },
           { duration: 1000 }
@@ -75,8 +75,7 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
   const handleAutoScroll = () => {
     const autoScroll = () => {
       const offset = scrollValue.value;
-      const activeIndex = Math.round(offset * 10000) / 10000;
-      const nextIndex = activeIndex + 1;
+      const nextIndex = offset + 1;
       goToPage(nextIndex, true);
     };
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -103,10 +102,11 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
     [scrollValue.value, slideWidth, autoScrollEnabled]
   );
 
+  // This handles the infinite scrolling
   useAnimatedReaction(
     () => scrollValue.value,
     (offset) => {
-      const activeIndex = offset
+      const activeIndex = offset;
       // if we are at the last index we need to switch to the second one without animation
       // second one because the first one is a clone of the last one
       if (activeIndex === paddedChildrenArray.length - 1) {
@@ -129,9 +129,9 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
 
   const scrollHandler = useAnimatedScrollHandler(
     (event) => {
-      const activeIndex = customRound(event.contentOffset.x / slideWidth)
-      if (event.contentOffset.x === 0) return
-      scrollValue.value = activeIndex
+      const activeIndex = customRound(event.contentOffset.x / slideWidth);
+      if (event.contentOffset.x === 0) return;
+      scrollValue.value = activeIndex;
     },
     [slideWidth, autoScrollEnabled]
   );

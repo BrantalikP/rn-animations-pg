@@ -1,11 +1,16 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext } from "react";
 
-export const AutoCarouselSlideContext = createContext<{ index: number; total: number } | null>(null)
+export const AutoCarouselSlideContext = createContext<{
+  index: number;
+  total: number;
+} | null>(null);
 
 export const useAutoCarouselSlideIndex = () => {
-  const context = useContext(AutoCarouselSlideContext)
+  const context = useContext(AutoCarouselSlideContext);
   if (!context) {
-    throw new Error('useAutoCarouselSlideIndex must be used within a AutoCarouselSlide')
+    throw new Error(
+      "useAutoCarouselSlideIndex must be used within a AutoCarouselSlide"
+    );
   }
-  return context
-}
+  return context;
+};
