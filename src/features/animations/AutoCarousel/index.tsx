@@ -3,23 +3,17 @@ import AutoCarousel from "./components/AutoCarousel";
 import { styles } from "./styles";
 import { useAutoCarouselSlideIndex } from "./components/AutoCarouselSlide/context";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import { interpolateLooped } from "./components/AutoCarouselSlide/utils";
+import { interpolateLooped, interpolateLoopedColor } from "./components/AutoCarouselSlide/utils";
 import { useAutoCarouselContext } from "./components/AutoCarousel/context";
 
 const Slide = ({
-  scaleValue = 0.4,
-  scaleScrollStartOffset = 0,
-  opacityStartOffset = 0.5,
-  opacityValue = 0.4,
   headline,
-  paragraph
+  paragraph,
+  color,
 }: {
-  scaleValue?: number;
-  scaleScrollStartOffset?: number;
-  opacityStartOffset?: number;
-  opacityValue?: number;
   headline: string;
   paragraph: string;
+  color: string;
 }) => {
   const { index, total } = useAutoCarouselSlideIndex();
   const { scrollValue } = useAutoCarouselContext();
@@ -29,26 +23,65 @@ const Slide = ({
       transform: [
         {
           scale: interpolateLooped(scrollValue.value, index, total, {
-            incoming: scaleValue,
+            incoming: 0.4,
             inside: 1,
-            outgoing: scaleValue,
-            offset: scaleScrollStartOffset,
+            outgoing: 0.4,
           }),
         },
       ],
       opacity: interpolateLooped(scrollValue.value, index, total, {
-        incoming: opacityValue,
+        incoming: 0.4,
         inside: 1,
-        outgoing: opacityValue,
-        offset: opacityStartOffset,
+        outgoing: 0.4,
+      })
+    };
+  });
+
+  const headlineStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: interpolateLooped(scrollValue.value, index, total, {
+            incoming: -600,
+            inside: 0,
+            outgoing: 600,
+          }),
+        },
+      ],
+      opacity: interpolateLooped(scrollValue.value, index, total, {
+        incoming: 0,
+        inside: 1,
+        outgoing: 0,
+      }),
+    };
+  });
+
+  const paragraphStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: interpolateLooped(scrollValue.value, index, total, {
+            incoming: -550,
+            inside: 0,
+            outgoing: 550,
+          }),
+
+        },
+      ],
+        opacity: interpolateLooped(scrollValue.value, index, total, {
+        incoming: 0,
+        inside: 1,
+        outgoing: 0,
       }),
     };
   });
 
   return (
     <Animated.View style={[styles.container, animatedStyle]}>
-      <Animated.Text style={styles.headline}>{headline}</Animated.Text>
-      <Animated.Text style={styles.text}>{paragraph}</Animated.Text>
+      <Animated.Text style={[styles.headline]}>
+        {headline}
+      </Animated.Text>
+      <Animated.Text style={[styles.text]}>{paragraph}</Animated.Text>
     </Animated.View>
   );
 };
@@ -56,11 +89,23 @@ const Slide = ({
 export const AutoCarouselExample = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1, padding: 16 }}>
+      <View style={{ flex: 1 }}>
         <AutoCarousel interval={5000}>
-          <Slide headline="First headline" paragraph="This is the first slide"/>
-          <Slide headline="Second headline" paragraph="This is the second slide"/>
-          <Slide headline="Third headline" paragraph="This is the third slide" />
+          <Slide
+            headline="First headline"
+            paragraph="This is the first slide"
+            color="red"
+          />
+          <Slide
+            headline="Second headline"
+            paragraph="This is the second slide"
+            color="green"
+          />
+          <Slide
+            headline="Third headline"
+            paragraph="This is the third slide"
+            color="blue"
+          />
         </AutoCarousel>
       </View>
     </SafeAreaView>

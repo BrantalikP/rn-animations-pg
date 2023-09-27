@@ -18,7 +18,7 @@ export const AutoCarouselSlide = ({
 
   return (
     <AutoCarouselSlideContext.Provider value={contextValue}>
-      <View style={{ flex: 1, width }}>{children}</View>
+      <View style={{ flex: 1, width, padding: 16 }}>{children}</View>
     </AutoCarouselSlideContext.Provider>
   );
 };

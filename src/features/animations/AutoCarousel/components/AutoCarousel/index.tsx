@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import type { LayoutChangeEvent, ScrollViewProps } from "react-native";
-import { View } from "react-native";
+import { Dimensions, View } from "react-native";
 import Animated, {
   runOnJS,
   useAnimatedScrollHandler,
@@ -8,8 +8,6 @@ import Animated, {
   withTiming,
   useAnimatedProps,
   useAnimatedReaction,
-  withDelay,
-  Easing,
 } from "react-native-reanimated";
 
 import { AutoCarouselContext } from "./context";
@@ -23,13 +21,28 @@ type AutoCarouselProps = {
 
 const NOT_INITIALIZED = -1;
 
+function customRound(number: number, precision = 0.002) {
+  'worklet'
+  // Find the difference between the number and its nearest integer value
+  const rounded = Math.round(number);
+  const difference = Math.abs(number - rounded);
+
+  // If the difference is less than or equal to the precision, round the number to the nearest integer
+  if (difference <= precision) {
+    return Math.round(number);
+  }
+
+  // If the difference is greater than the precision, return the original number
+  return number;
+}
+
+const { width: slideWidth } = Dimensions.get("window");
+
 const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
   const scrollViewRef = useRef<Animated.ScrollView>(null);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
-  const offset = useSharedValue({ value: NOT_INITIALIZED });
-  const scrollValue = useSharedValue(0);
-  const [init, setInit] = useState(false);
-  const [slideWidth, setSlideWidth] = useState(0);
+  const offset = useSharedValue({ value: slideWidth });
+  const scrollValue = useSharedValue(1);
 
   const childrenArray = React.Children.toArray(children);
 
@@ -82,20 +95,18 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
   useAnimatedReaction(
     () => scrollValue.value,
     (offset) => {
-      if (!init) return;
       if (slideWidth === 0) return;
       if (offset % 1 !== 0) return;
       if (!autoScrollEnabled) return;
       runOnJS(handleAutoScroll)();
     },
-    [scrollValue.value, slideWidth, init, autoScrollEnabled]
+    [scrollValue.value, slideWidth, autoScrollEnabled]
   );
 
   useAnimatedReaction(
     () => scrollValue.value,
     (offset) => {
-      if (!init) return;
-      const activeIndex = Math.round(offset * 10000) / 10000;
+      const activeIndex = offset
       // if we are at the last index we need to switch to the second one without animation
       // second one because the first one is a clone of the last one
       if (activeIndex === paddedChildrenArray.length - 1) {
@@ -112,28 +123,18 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
       goToPage,
       paddedChildrenArray.length,
       slideWidth,
-      init,
       scrollValue.value,
     ]
   );
 
-  useEffect(() => {
-    if (slideWidth) goToPage(1, false);
-  }, [slideWidth]);
-
   const scrollHandler = useAnimatedScrollHandler(
     (event) => {
-      if (!init) return;
-      const activeIndex = Math.round((event.contentOffset.x / slideWidth) * 100) / 100;
+      const activeIndex = customRound(event.contentOffset.x / slideWidth)
+      if (event.contentOffset.x === 0) return
       scrollValue.value = activeIndex
     },
-    [slideWidth, autoScrollEnabled, init]
+    [slideWidth, autoScrollEnabled]
   );
-
-  const onLayout = useCallback((event: LayoutChangeEvent) => {
-    const { width } = event.nativeEvent.layout;
-    setSlideWidth(width);
-  }, []);
 
   const animatedProps = useAnimatedProps<ScrollViewProps>(() => {
     return {
@@ -142,18 +143,7 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
         y: 0,
       },
     };
-  }, [offset.value, scrollValue.value]);
-
-  useEffect(() => {
-    scrollValue.value = withDelay(
-      200,
-      withTiming(
-        1,
-        { duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) },
-        () => runOnJS(setInit)(true)
-      )
-    );
-  }, [scrollValue]);
+  }, [offset.value]);
 
   return (
     <AutoCarouselContext.Provider value={{ scrollValue }}>
@@ -162,8 +152,6 @@ const AutoCarousel = ({ interval, children }: AutoCarouselProps) => {
           ref={scrollViewRef}
           horizontal
           pagingEnabled
-          onLayout={onLayout}
-          style={{ overflow: "visible" }}
           scrollToOverflowEnabled
           animatedProps={animatedProps}
           onScrollBeginDrag={() => {
