@@ -26,4 +26,7 @@ export const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: "bold",
   },
+  wrapper: {
+    flex: 1,
+  },
 });

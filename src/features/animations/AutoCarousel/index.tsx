@@ -35,44 +35,6 @@ const Slide = ({
     };
   });
 
-  const headlineStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateY: interpolateLooped(scrollValue.value, index, total, {
-            incoming: -600,
-            inside: 0,
-            outgoing: 600,
-          }),
-        },
-      ],
-      opacity: interpolateLooped(scrollValue.value, index, total, {
-        incoming: 0,
-        inside: 1,
-        outgoing: 0,
-      }),
-    };
-  });
-
-  const paragraphStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateY: interpolateLooped(scrollValue.value, index, total, {
-            incoming: -550,
-            inside: 0,
-            outgoing: 550,
-          }),
-        },
-      ],
-      opacity: interpolateLooped(scrollValue.value, index, total, {
-        incoming: 0,
-        inside: 1,
-        outgoing: 0,
-      }),
-    };
-  });
-
   return (
     <Animated.View style={[styles.container, animatedStyle]}>
       <Animated.Text style={[styles.headline]}>{headline}</Animated.Text>
@@ -83,8 +45,7 @@ const Slide = ({
 
 export const AutoCarouselExample = () => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
+    <SafeAreaView style={styles.wrapper}>
         <AutoCarousel interval={5000}>
           <Slide
             headline="First headline"
@@ -99,7 +60,6 @@ export const AutoCarouselExample = () => {
             paragraph="This is the third slide"
           />
         </AutoCarousel>
-      </View>
     </SafeAreaView>
   );
 };
