@@ -4,7 +4,7 @@ import { match } from "ts-pattern";
 import { DataIds } from "../home/screens/presets";
 import { BottomSheet } from "../animations/BottomSheet";
 import { Animated3DCard } from "../animations/Animated3DCard";
-import React from "react";
+import React, { ComponentType } from "react";
 import { ColorPicker } from "../animations/ColorPicker";
 import { AnimatedList } from "../animations/AnimatedList";
 import { CircularProgressBar } from "../animations/CircularProgressBar";
@@ -25,40 +25,44 @@ import { ClipBackground } from "../animations/ClipBackground";
 import { FourierVisualizer } from "../animations/FourierVisualizer";
 import { AutoCarouselExample } from "../animations/AutoCarousel";
 
+export const config: Record<DataIds, ComponentType> = {
+  "bottomSheet": BottomSheet,
+  "colorPicker": ColorPicker,
+  "animated3D": Animated3DCard,
+  "circularProgressBar": CircularProgressBar,
+  "colorsInterpolate": ColorsInterpolate,
+  "doubleTap": DoubleTap,
+  "flatList": FlatList,
+  "gestureHandler2": GestureHandler2,
+  "gridMagnification": GridMagnification,
+  "introduction": Introduction,
+  "lottieAstronaut": LottieAstrounaut,
+  "metaBall": Metaball,
+  "panGesture": PanGestures,
+  "pinchGesture": PinchGestures,
+  "scrollPan": ScrollPan,
+  "scrollViewInterpolate": ScrollViewInterpolate,
+  "themeSwitch": ThemeSwitch,
+  "clipBackground": ClipBackground,
+  "fourierVisualizer": FourierVisualizer,
+  "autoCarousel": AutoCarouselExample
+}
+
 interface IPreview { }
 
 const Preview = ({ }: IPreview) => {
   const { id } = useLocalSearchParams<{ id: [DataIds] }>();
   const extractedId: DataIds | undefined = id?.[0];
 
-  const AnimationComponent = () =>
-    match<DataIds | undefined, JSX.Element>(extractedId)
-      .with("bottomSheet", () => <BottomSheet />)
-      .with("colorPicker", () => <ColorPicker />)
-      .with("animated3D", () => <Animated3DCard />)
-      .with("circularProgressBar", () => <CircularProgressBar />)
-      .with("colorsInterpolate", () => <ColorsInterpolate />)
-      .with("doubleTap", () => <DoubleTap />)
-      .with("flatList", () => <FlatList />)
-      .with("gestureHandler2", () => <GestureHandler2 />)
-      .with("gridMagnification", () => <GridMagnification />)
-      .with("introduction", () => <Introduction />)
-      .with("lottieAstronaut", () => <LottieAstrounaut />)
-      .with("metaBall", () => <Metaball />)
-      .with("panGesture", () => <PanGestures />)
-      .with("pinchGesture", () => <PinchGestures />)
-      .with("scrollPan", () => <ScrollPan />)
-      .with("scrollViewInterpolate", () => <ScrollViewInterpolate />)
-      .with("themeSwitch", () => <ThemeSwitch />)
-      .with("clipBackground", () => <ClipBackground />)
-      .with("fourierVisualizer", () => <FourierVisualizer />)
-      .with("autoCarousel", () => <AutoCarouselExample />)
-
-      .otherwise(() => (
-        <View>
+  const AnimationComponent = () => {
+    if (!extractedId) return (
+      <View>
           <Text>Not Found</Text>
         </View>
-      ));
+    );
+    const Component = config[extractedId]
+    return <Component />
+  }
 
   return (
     <>

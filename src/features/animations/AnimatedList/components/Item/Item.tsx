@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Dimensions } from "react-native";
 import { HEIGHT, styles } from "./styles";
 import Animated, {
   interpolate,
@@ -9,6 +9,8 @@ import { useNavigation } from "expo-router";
 import { Link } from "expo-router";
 import { router } from "expo-router";
 import { data } from "@/features/home/screens/presets";
+import { config } from "@/features/preview";
+import { transform } from "@babel/core";
 
 export interface IItem {
   item: (typeof data)[number];
@@ -17,6 +19,8 @@ export interface IItem {
   itemY?: Animated.SharedValue<number>;
   itemHeight?: Animated.SharedValue<number>;
 }
+
+const { width, height } = Dimensions.get("window");
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -63,23 +67,40 @@ const Item = ({
     };
   });
 
+  const Component = config[item.id];
+
   return (
     <AnimatedPressable
       style={[
         {
-          backgroundColor: "#fafa6e",
-          marginBottom: SPACING,
-          height: HEIGHT,
-          padding: SPACING,
+          backgroundColor: "black",
+          width: width,
+          height: height,
           borderRadius: 16,
-          justifyContent: "flex-end",
-          alignItems: "flex-end",
+          overflow: "hidden",
+          justifyContent: "center",
+          alignItems: "center",
         },
-        stylez,
       ]}
       onPress={() => router.push(`/anim/${item.id}`)}
     >
-      <Text>{item.name}</Text>
+      <View pointerEvents="none" style={{ flex: 1, width: "100%" }}>
+        <Component />
+        <Text
+          style={{
+            position: "absolute",
+            bottom: 0,
+            color: "white",
+            fontSize: 40,
+            padding: 6,
+            fontWeight: "bold",
+            textTransform: "uppercase",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+          }}
+        >
+          {item.name}
+        </Text>
+      </View>
     </AnimatedPressable>
   );
 };

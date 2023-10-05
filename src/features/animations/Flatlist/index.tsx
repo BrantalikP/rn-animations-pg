@@ -21,9 +21,9 @@ export const FlatList = () => {
         renderItem={({ item }) => {
           return <ListItem item={item} viewableItems={viewableItems} />;
         }}
-        onViewableItemsChanged={({ viewableItems: vItems, changed }) => {
-          viewableItems.value = vItems;
-        }}
+        // onViewableItemsChanged={({ viewableItems: vItems, changed }) => {
+        //   viewableItems.value = vItems;
+        // }}
         contentContainerStyle={{ paddingTop: 40 }}
       />
     </View>
