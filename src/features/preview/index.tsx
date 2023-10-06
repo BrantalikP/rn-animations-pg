@@ -25,7 +25,7 @@ import { ClipBackground } from "../animations/ClipBackground";
 import { FourierVisualizer } from "../animations/FourierVisualizer";
 import { AutoCarouselExample } from "../animations/AutoCarousel";
 
-export const config: Record<DataIds, ComponentType> = {
+export const idToComponentMap: Record<DataIds, ComponentType> = {
   "bottomSheet": BottomSheet,
   "colorPicker": ColorPicker,
   "animated3D": Animated3DCard,
@@ -60,7 +60,7 @@ const Preview = ({ }: IPreview) => {
           <Text>Not Found</Text>
         </View>
     );
-    const Component = config[extractedId]
+    const Component = idToComponentMap[extractedId]
     return <Component />
   }
 

@@ -2,7 +2,7 @@ import { View, Text, Pressable } from "react-native";
 import Animated from "react-native-reanimated";
 import { router } from "expo-router";
 import { data } from "@/features/home/screens/presets";
-import { config } from "@/features/preview";
+import { idToComponentMap } from "@/features/preview";
 import { styles } from "./styles";
 
 export interface IItem {
@@ -16,7 +16,7 @@ export interface IItem {
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const Item = ({ item }: IItem) => {
-  const Component = config[item.id];
+  const Component = idToComponentMap[item.id];
 
   return (
     <AnimatedPressable
