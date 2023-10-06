@@ -16,8 +16,6 @@ const AnimatedFlatList = Animated.createAnimatedComponent(
   FlatList<IAnimatedList["data"][number]>
 );
 
-const { width, height } = Dimensions.get("window");
-
 const AnimatedList = ({ data }: IAnimatedList) => {
   const scrollY = useSharedValue(0);
 
@@ -35,8 +33,8 @@ const AnimatedList = ({ data }: IAnimatedList) => {
         scrollEventThrottle={16}
         renderItem={({ item, index }) => {
           return (
-            <View style={{ width: width / 2, height: height / 2}}>
-              <Animated.View style={{ transform: [{ scale: 0.47 }, { translateX: -width / 4}, { translateY: -height / 2 }] }}>
+            <View style={styles.itemWrapper}>
+              <Animated.View style={styles.itemTransform}>
                 <Item item={item} index={index} scrollY={scrollY} />
               </Animated.View>
             </View>
