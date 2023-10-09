@@ -1,12 +1,6 @@
-import { useEffect } from "react";
+import { useCallback } from "react";
 import { View, FlatList as RNFlatList, ViewToken } from "react-native";
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  withSpring,
-  withRepeat,
-} from "react-native-reanimated";
+import { useSharedValue } from "react-native-reanimated";
 import { ListItem } from "./components/ListItem";
 import { styles } from "./styles";
 
@@ -21,9 +15,12 @@ export const FlatList = () => {
         renderItem={({ item }) => {
           return <ListItem item={item} viewableItems={viewableItems} />;
         }}
-        onViewableItemsChanged={({ viewableItems: vItems, changed }) => {
-          viewableItems.value = vItems;
-        }}
+        onViewableItemsChanged={useCallback(
+          ({ viewableItems: vItems }: { viewableItems: ViewToken[] }) => {
+            viewableItems.value = vItems;
+          },
+          []
+        )}
         contentContainerStyle={{ paddingTop: 40 }}
       />
     </View>

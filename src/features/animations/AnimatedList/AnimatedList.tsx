@@ -1,12 +1,12 @@
-import { View, Text, FlatList, StatusBar } from "react-native";
+import { View, FlatList, StatusBar, Dimensions } from "react-native";
 import { styles } from "./styles";
 import { Item } from "./components/Item";
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from "react-native-reanimated";
-import { CustomCellRendererComponent } from "./components/CustomCellRendererComponent";
-import { DataIds, data } from "@/features/home/screens/presets";
+import { data } from "@/features/home/screens/presets";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface IAnimatedList {
   data: typeof data;
@@ -23,19 +23,19 @@ const AnimatedList = ({ data }: IAnimatedList) => {
     scrollY.value = ev.contentOffset.y;
   });
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar hidden />
       <AnimatedFlatList
         data={data}
         keyExtractor={(item) => item.id}
         onScroll={onScroll}
+        numColumns={2}
         scrollEventThrottle={16}
-        CellRendererComponent={CustomCellRendererComponent}
         renderItem={({ item, index }) => {
           return <Item item={item} index={index} scrollY={scrollY} />;
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
