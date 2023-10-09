@@ -12,6 +12,10 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  componentWrapper: {
+    flex: 1,
+    width: "100%",
+  },
   label: {
     position: "absolute",
     bottom: 0,
@@ -21,5 +25,16 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     textTransform: "uppercase",
     backgroundColor: "rgba(0, 0, 0, 0.7)",
+  },
+  transformWrapper: {
+    width: width / 2,
+    height: height / 2,
+  },
+  itemTransform: {
+    transform: [
+      { scale: 0.47 },
+      { translateX: -width / 4 },
+      { translateY: -height / 2 },
+    ],
   },
 });

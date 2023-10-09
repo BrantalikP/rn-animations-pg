@@ -32,13 +32,7 @@ const AnimatedList = ({ data }: IAnimatedList) => {
         numColumns={2}
         scrollEventThrottle={16}
         renderItem={({ item, index }) => {
-          return (
-            <View style={styles.itemWrapper}>
-              <Animated.View style={styles.itemTransform}>
-                <Item item={item} index={index} scrollY={scrollY} />
-              </Animated.View>
-            </View>
-          );
+          return <Item item={item} index={index} scrollY={scrollY} />;
         }}
       />
     </SafeAreaView>
