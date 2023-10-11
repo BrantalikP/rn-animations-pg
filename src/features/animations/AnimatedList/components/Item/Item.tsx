@@ -6,6 +6,7 @@ import { styles } from "./styles";
 import { idToComponentMap } from "@/features/preview/preset";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Headline } from "@/typography";
+import { theme } from "@/theme";
 
 export interface IItem {
   item: (typeof data)[number];
@@ -40,7 +41,7 @@ const Item = ({ item }: IItem) => {
           name="info"
           size={32}
           onPress={() => router.push(`/detail/${item.id}`)}
-          color="#737373"
+          color={theme.border}
         />
       </Pressable>
       <Animated.View style={styles.itemTransform}>
