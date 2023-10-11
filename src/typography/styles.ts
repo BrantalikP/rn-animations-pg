@@ -1,8 +1,9 @@
+import { theme } from "@/theme";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   headline: {
-    color: "white",
+    color: theme.textPrimary,
     fontSize: 20,
     padding: 6,
     fontWeight: "bold",
@@ -10,11 +11,11 @@ export const styles = StyleSheet.create({
   },
   paragraph: {
     fontSize: 16,
-    color: "white",
+    color: theme.textPrimary,
   },
   tag: {
-    backgroundColor: "#ed0c32",
-    color: "white",
+    backgroundColor: theme.accent1,
+    color: theme.textPrimary,
     borderRadius: 12,
     padding: 4,
     paddingHorizontal: 12,

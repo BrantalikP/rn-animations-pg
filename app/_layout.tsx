@@ -1,4 +1,5 @@
 import { Provider } from "@/provider";
+import { theme } from "@/theme";
 import { Stack } from "expo-router";
 
 export default function HomeLayout() {
@@ -9,7 +10,7 @@ export default function HomeLayout() {
           title: "",
           headerShown: false,
           contentStyle: {
-            backgroundColor: "black",
+            backgroundColor: theme.primary,
           }
         }}
       />

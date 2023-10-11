@@ -1,3 +1,4 @@
+import { theme } from "@/theme";
 import { Dimensions, StyleSheet } from "react-native";
 
 const { width, height } = Dimensions.get("window");
@@ -10,7 +11,7 @@ export const styles = StyleSheet.create({
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "#737373",
+    borderColor: theme.border,
     borderWidth: 1,
   },
   componentWrapper: {
@@ -23,7 +24,7 @@ export const styles = StyleSheet.create({
     bottom: 0,
     zIndex: 100,
     left: 6,
-    backgroundColor: "#ed0c32",
+    backgroundColor: theme.accent1,
   },
   transformWrapper: {
     width: width / 2,
@@ -52,6 +53,6 @@ export const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 1001,
     right: 12,
-    top: 32
+    top: 32,
   },
 });
