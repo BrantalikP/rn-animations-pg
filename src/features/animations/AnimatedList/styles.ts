@@ -9,6 +9,7 @@ const { width, height } = Dimensions.get("window");
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "black",
   },
   itemWrapper: {
     width: width / 2,

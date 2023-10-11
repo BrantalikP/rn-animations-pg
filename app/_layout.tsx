@@ -1,13 +1,18 @@
-import { BackButton } from "@/components/BackButton";
+import { Provider } from "@/provider";
 import { Stack } from "expo-router";
 
 export default function HomeLayout() {
   return (
-    <Stack
-      screenOptions={{
-        title: "",
-        headerTransparent: true,
-      }}
-    />
+    <Provider>
+      <Stack
+        screenOptions={{
+          title: "",
+          headerShown: false,
+          contentStyle: {
+            backgroundColor: "black",
+          }
+        }}
+      />
+    </Provider>
   );
 }
