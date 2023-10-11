@@ -31,12 +31,9 @@ export const DetailScreen = () => {
         sharedTransitionTag={extractedId}
         style={styles.contentCard}
       >
-        <Paragraph>
-          This is a simple animation to show basics of Reanimated how to use
-          animated styles and how to work with shared values using effects.
-        </Paragraph>
+        <Paragraph>{item?.description}</Paragraph>
         <View style={styles.tagWrapper}>
-          {["Reanimated", "shared values", "intro"].map((item) => (
+          {item?.tags.map((item) => (
             <Tag>{item}</Tag>
           ))}
         </View>

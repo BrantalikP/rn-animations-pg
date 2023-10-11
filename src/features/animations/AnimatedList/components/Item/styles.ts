@@ -29,7 +29,6 @@ export const styles = StyleSheet.create({
   transformWrapper: {
     width: width / 2,
     height: height / 2,
-    borderWidth: 1,
   },
   itemTransform: {
     transform: [
