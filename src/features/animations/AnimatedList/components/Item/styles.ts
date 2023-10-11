@@ -18,22 +18,17 @@ export const styles = StyleSheet.create({
     opacity: 0.8,
     width: "100%",
   },
-  label: {
+  labelWrapper: {
     position: "absolute",
     bottom: 0,
-    color: "white",
-    fontSize: 20,
     zIndex: 100,
-    padding: 6,
     left: 6,
-    fontWeight: "bold",
-    textTransform: "uppercase",
     backgroundColor: "#ed0c32",
   },
   transformWrapper: {
     width: width / 2,
     height: height / 2,
-    borderWidth: 1
+    borderWidth: 1,
   },
   itemTransform: {
     transform: [
@@ -41,5 +36,22 @@ export const styles = StyleSheet.create({
       { translateX: -width / 4 },
       { translateY: -height / 2 },
     ],
+  },
+  detailAnimationOrigin: {
+    position: "absolute",
+    width: 32,
+    height: 32,
+    zIndex: 1000,
+    right: 12,
+    top: 32,
+    backgroundColor: "transparent",
+    borderRadius: 20,
+    overflow: "hidden",
+  },
+  infoIconWrapper: {
+    position: "absolute",
+    zIndex: 1001,
+    right: 12,
+    top: 32
   },
 });

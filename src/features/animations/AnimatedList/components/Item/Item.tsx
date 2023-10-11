@@ -5,6 +5,7 @@ import { data } from "@/features/home/screens/presets";
 import { styles } from "./styles";
 import { idToComponentMap } from "@/features/preview/preset";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Headline } from "@/typography";
 
 export interface IItem {
   item: (typeof data)[number];
@@ -23,24 +24,16 @@ const Item = ({ item }: IItem) => {
 
   return (
     <View style={styles.transformWrapper}>
-      <Animated.Text style={styles.label}>{item.name}</Animated.Text>
+      <View style={styles.labelWrapper}>
+        <Headline>{item.name}</Headline>
+      </View>
       <Animated.View
-        style={{
-          position: "absolute",
-          width: 32,
-          height: 32,
-          zIndex: 1000,
-          right: 12,
-          top: 32,
-          backgroundColor: "transparent",
-          borderRadius: 20,
-          overflow: "hidden",
-        }}
+        style={styles.detailAnimationOrigin}
         sharedTransitionTag={item.id}
       ></Animated.View>
       <Pressable
         onPress={() => router.push(`/detail/${item.id}`)}
-        style={{ position: "absolute", zIndex: 1001, right: 12, top: 32 }}
+        style={styles.infoIconWrapper}
         hitSlop={30}
       >
         <AnimatedIcon
