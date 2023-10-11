@@ -1,30 +1,30 @@
+import { theme } from "@/theme";
 import { Dimensions, StyleSheet } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "black",
     width: width,
     height: height,
     borderRadius: 16,
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
+    borderColor: theme.border,
+    borderWidth: 1,
   },
   componentWrapper: {
     flex: 1,
+    opacity: 0.8,
     width: "100%",
   },
-  label: {
+  labelWrapper: {
     position: "absolute",
     bottom: 0,
-    color: "white",
-    fontSize: 40,
-    padding: 6,
-    fontWeight: "bold",
-    textTransform: "uppercase",
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    zIndex: 100,
+    left: 6,
+    backgroundColor: theme.accent1,
   },
   transformWrapper: {
     width: width / 2,
@@ -36,5 +36,22 @@ export const styles = StyleSheet.create({
       { translateX: -width / 4 },
       { translateY: -height / 2 },
     ],
+  },
+  detailAnimationOrigin: {
+    position: "absolute",
+    width: 32,
+    height: 32,
+    zIndex: 1000,
+    right: 12,
+    top: 32,
+    backgroundColor: "transparent",
+    borderRadius: 20,
+    overflow: "hidden",
+  },
+  infoIconWrapper: {
+    position: "absolute",
+    zIndex: 1001,
+    right: 12,
+    top: 32,
   },
 });

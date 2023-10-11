@@ -1,3 +1,4 @@
+import { theme } from "@/theme";
 import { Dimensions, StyleSheet } from "react-native";
 
 export const SPACING = 10;
@@ -9,6 +10,7 @@ const { width, height } = Dimensions.get("window");
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.primary,
   },
   itemWrapper: {
     width: width / 2,
