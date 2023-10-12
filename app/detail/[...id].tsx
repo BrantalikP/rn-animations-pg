@@ -1,1 +1,1 @@
-export { DetailScreen as default} from '@/features/browse/screens/detail/Detail'
+export { DetailScreen as default} from '@/features/browse/screens/detail'

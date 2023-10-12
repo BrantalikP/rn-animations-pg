@@ -1,8 +1,7 @@
 import { View, Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { DataIds } from "../browse/screens/home/screens/presets";
 import React from "react";
-import { idToComponentMap } from "./preset";
+import { DataIds, idToComponentMap } from "../../preset";
 
 interface IPreview {}
 
