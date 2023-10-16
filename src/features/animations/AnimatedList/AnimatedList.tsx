@@ -5,7 +5,7 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from "react-native-reanimated";
-import { data } from "@/features/home/screens/presets";
+import { data } from "@/features/browse/screens/home/screens/presets";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface IAnimatedList {

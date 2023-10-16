@@ -2,9 +2,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
-import { DataIds, data } from "../home/screens/presets";
 import { styles } from "./styles";
 import { Headline, Paragraph, Tag } from "@/typography";
+import { DataIds, data } from "../../preset";
 
 export const DetailScreen = () => {
   const { id } = useLocalSearchParams<{ id: [DataIds] }>();

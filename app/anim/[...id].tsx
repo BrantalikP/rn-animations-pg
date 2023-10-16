@@ -1,1 +1,1 @@
-export { Preview as default } from "src/features/preview";
+export { Preview as default } from "@/features/browse/screens/preview";
