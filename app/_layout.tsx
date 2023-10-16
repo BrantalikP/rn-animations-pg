@@ -10,21 +10,15 @@ SystemUI.setBackgroundColorAsync("black");
 export default function HomeLayout() {
   return (
     <Provider>
-      <SplashScreen
-        enabled={true}
-        duration={1000}
-        delay={1000}
-      >
-        <Stack
-          screenOptions={{
-            title: "",
-            headerShown: false,
-            contentStyle: {
-              backgroundColor: theme.primary,
-            },
-          }}
-        />
-      </SplashScreen>
+      <Stack
+        screenOptions={{
+          title: "",
+          headerShown: false,
+          contentStyle: {
+            backgroundColor: theme.primary,
+          },
+        }}
+      />
     </Provider>
   );
 }

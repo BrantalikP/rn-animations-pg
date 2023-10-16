@@ -11,7 +11,6 @@ import Animated, {
   useDerivedValue,
 } from "react-native-reanimated";
 import { View, Dimensions, StyleSheet } from "react-native";
-import * as SystemUI from "expo-system-ui";
 import {
   Canvas,
   Fill,
@@ -25,8 +24,6 @@ import { theme } from "@/theme";
 const { width, height } = Dimensions.get("window");
 
 const center = { x: width / 2, y: height / 2 };
-
-SystemUI.setBackgroundColorAsync("black");
 
 export const SplashScreen = ({
   onEnd,
@@ -122,39 +119,42 @@ export const SplashScreen = ({
     return centeredTextX - offset;
   };
 
-  if (!enabled) return <>{children}</>;
-
   return (
     <>
-      <View
-        style={[StyleSheet.absoluteFill, { zIndex: 1000 }]}
-        pointerEvents="none"
-      >
-        <Canvas style={{ flex: 1 }}>
-          <Group clip={clipPath} invertClip>
-            <Fill color="#000000" />
-            <Group
-              transform={textTransform}
-              origin={{ x: center.x, y: center.y - estimatedVerticalCenterOffset }}
-            >
-              <SkiaText
-                x={getCenteredLetterOPosition()}
-                y={center.y}
-                text="SHOW"
-                font={font}
-                color={theme.accent1}
-              />
-              <SkiaText
-                x={centeredTextX + 50}
-                y={center.y + 80}
-                text="CASE"
-                font={font}
-                color={theme.accent1}
-              />
+      {enabled && (
+        <View
+          style={[StyleSheet.absoluteFill, { zIndex: 1000 }]}
+          pointerEvents="none"
+        >
+          <Canvas style={{ flex: 1 }}>
+            <Group clip={clipPath} invertClip>
+              <Fill color="#000000" />
+              <Group
+                transform={textTransform}
+                origin={{
+                  x: center.x,
+                  y: center.y - estimatedVerticalCenterOffset,
+                }}
+              >
+                <SkiaText
+                  x={getCenteredLetterOPosition()}
+                  y={center.y}
+                  text="SHOW"
+                  font={font}
+                  color={theme.accent1}
+                />
+                <SkiaText
+                  x={centeredTextX + 50}
+                  y={center.y + 80}
+                  text="CASE"
+                  font={font}
+                  color={theme.accent1}
+                />
+              </Group>
             </Group>
-          </Group>
-        </Canvas>
-      </View>
+          </Canvas>
+        </View>
+      )}
       <Animated.View style={[{ flex: 1 }, rStyleChildren]}>
         {children}
       </Animated.View>
