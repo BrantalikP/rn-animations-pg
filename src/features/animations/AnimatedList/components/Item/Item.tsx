@@ -1,9 +1,8 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
 import Animated from "react-native-reanimated";
 import { router } from "expo-router";
-import { data } from "@/features/home/screens/presets";
 import { styles } from "./styles";
-import { idToComponentMap } from "@/features/preview/preset";
+import { data, idToComponentMap } from "@/features/browse/preset";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Headline } from "@/typography";
 import { theme } from "@/theme";

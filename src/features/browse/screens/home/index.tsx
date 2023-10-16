@@ -4,7 +4,7 @@ import { styles } from "./styles";
 import chroma from "chroma-js";
 import { AnimatedList } from "@/features/animations/AnimatedList";
 import { faker } from "@faker-js/faker";
-import { data } from "./presets";
+import { data } from "../../preset";
 
 // const colors = chroma.scale(["#fafa6e", "#2A4858"]).mode("lch").colors(30);
 
