@@ -22,29 +22,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.petrkonecny2.reanimatedpg"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.petrkonecny2.reanimatedpg"
+      }
     },
     "plugins": [
       "expo-router"
     ],
     "experiments": {
       "tsconfigPaths": true
-    },
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "9ab6c4cd-15cf-49db-ad73-4b8bfc9f1d72"
-      }
     }
   }
 }
