@@ -23,6 +23,7 @@ export const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     zIndex: 100,
+    borderBottomLeftRadius: 8,
     left: 6,
     backgroundColor: theme.accent1,
   },
