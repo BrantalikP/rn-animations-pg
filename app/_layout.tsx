@@ -3,7 +3,6 @@ import { theme } from "@/theme";
 import { Stack } from "expo-router";
 import React from "react";
 import * as SystemUI from "expo-system-ui";
-import { SplashScreen } from "@/features/browse/screens/splash";
 
 SystemUI.setBackgroundColorAsync("black");
 
