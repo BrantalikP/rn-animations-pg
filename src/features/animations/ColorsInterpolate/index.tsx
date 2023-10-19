@@ -8,6 +8,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { styles } from "./styles";
+import { theme as colorTheme } from "@/theme";
 
 const Colors = {
   dark: {
@@ -23,7 +24,7 @@ const Colors = {
 };
 
 const SWITCH_TRACK_COLOR = {
-  true: "rgba(256,0,256,0.2)",
+  true: colorTheme.primary,
   false: "rgba(0,0,0,0.1)",
 };
 
@@ -68,7 +69,7 @@ export const ColorsInterpolate = () => {
           value={theme === "dark"}
           onValueChange={(toggled) => setTheme(toggled ? "dark" : "light")}
           trackColor={SWITCH_TRACK_COLOR}
-          thumbColor={"violet"}
+          thumbColor={colorTheme.accent1}
         />
       </Animated.View>
     </Animated.View>

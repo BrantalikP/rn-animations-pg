@@ -1,8 +1,6 @@
-import { View, Text, useWindowDimensions } from "react-native";
-import { styles } from "./styles";
+import { useWindowDimensions } from "react-native";
 import {
   Blur,
-  Canvas,
   Circle,
   ColorMatrix,
   Group,

@@ -8,6 +8,7 @@ import Animated, {
   withRepeat,
 } from "react-native-reanimated";
 import { styles } from "./styles";
+import { theme } from "@/theme";
 
 const SIZE = 100;
 
@@ -36,7 +37,7 @@ export const Introduction = () => {
     <View style={styles.container}>
       <Animated.View
         style={[
-          { height: SIZE, width: SIZE, backgroundColor: "blue" },
+          { height: SIZE, width: SIZE, backgroundColor: theme.accent2 },
           reanimatedStyle,
         ]}
       />

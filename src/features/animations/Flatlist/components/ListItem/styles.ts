@@ -1,3 +1,4 @@
+import { theme } from "@/theme";
 import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
@@ -9,6 +10,6 @@ export const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 15,
     alignSelf: "center",
-    backgroundColor: "#78CAD2",
+    backgroundColor: theme.accent2,
   },
 });

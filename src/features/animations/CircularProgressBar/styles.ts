@@ -1,9 +1,10 @@
+import { theme } from "@/theme";
 import { Dimensions, StyleSheet } from "react-native";
-export const BACKGROUND_COLOR = "#444B6F";
-export const BACKGROUND_STROKE_COLOR = "#303858";
-export const STROKE_COLOR = "#A6E1FA";
+export const BACKGROUND_COLOR = theme.primary;
+export const BACKGROUND_STROKE_COLOR = theme.primary;
+export const STROKE_COLOR = theme.accent2;
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   container: {
@@ -14,7 +15,6 @@ export const styles = StyleSheet.create({
   },
 
   progressText: {
-    top: 40,
     fontSize: 80,
     color: "rgba(256, 256, 256, 0.7)",
   },
