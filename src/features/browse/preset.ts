@@ -1,28 +1,28 @@
 import { ComponentType } from "react";
 import { Animated3DCard } from "../animations/Animated3DCard";
-import { AutoCarouselExample } from "../animations/AutoCarousel";
+import { InfiniteAutoScroll } from "../animations/InfiniteAutoScroll";
 import { BottomSheet } from "../animations/BottomSheet";
 import { CircularProgressBar } from "../animations/CircularProgressBar";
 import { ClipBackground } from "../animations/ClipBackground";
 import { ColorPicker } from "../animations/ColorPicker";
-import { ColorsInterpolate } from "../animations/ColorsInterpolate";
+import { DarkMode } from "../animations/DarkMode";
 import { DoubleTap } from "../animations/DoubleTap";
 import { FourierVisualizer } from "../animations/FourierVisualizer";
-import { GestureHandler2 } from "../animations/GestureHandler2";
+import { FollowGesture } from "../animations/FollowGesture";
 import { GridMagnification } from "../animations/GridMagnificationSkia";
-import { Introduction } from "../animations/Introduction";
-import { LottieAstronaut } from "../animations/LottieAstronaut";
-import { Metaball } from "../animations/Metaball";
+import { Basics } from "../animations/Basics";
+import { Lottie } from "../animations/Lottie";
+import { FluidBall } from "../animations/FluidBall";
 import { PanGestures } from "../animations/PanGestures";
 import { PinchGestures } from "../animations/PinchGestures";
 import { ScrollPan } from "../animations/Scroll+Pan";
-import { ScrollViewInterpolate } from "../animations/ScrollViewInterpolate";
+import { Carousel } from "../animations/Carousel";
 import { ThemeSwitch } from "../animations/ThemeSwitch";
 import { FlatList } from "../animations/Flatlist";
 
 export const data = [
   {
-    id: "introduction",
+    id: "basics",
     name: "Basics",
     description:
       "This is a simple animation to show basics of Reanimated how to use animated styles and how to work with shared values using effects.",
@@ -59,7 +59,7 @@ export const data = [
     tags: ["Reanimated", "colors"],
   },
   {
-    id: "colorsInterpolate",
+    id: "darkMode",
     name: "Dark mode",
     description:
       "Another example of color interpolation. This time we are using it to implement a dark mode switch.",
@@ -80,7 +80,7 @@ export const data = [
     tags: ["Reanimated", "gestures", "scroll"],
   },
   {
-    id: "gestureHandler2",
+    id: "followGesture",
     name: "Follow Gesture",
     description:
       "In this example you can see how you can implement animation that are dependent on each other. When you start dragging the blue ball the red and green ones will follow it.",
@@ -100,7 +100,7 @@ export const data = [
     tags: ["Lottie"],
   },
   {
-    id: "metaBall",
+    id: "fluidBall",
     name: "Fluid Ball",
     description:
       "This is an example of clever use of blur effect to create fluid like animation by distortion of the view. By using a blur effect over a defined layer you can achieve a convincing fluid like effect.",
@@ -115,7 +115,7 @@ export const data = [
   },
   { id: "scrollPan", name: "Scroll Pan", description: "TODO", tags: [] },
   {
-    id: "scrollViewInterpolate",
+    id: "carousel",
     name: "Carousel",
     description:
       "An example how to implement a carousel animations using scroll view and reanimated. By scrolling the carousel you can see how the background color changes and items in the carousel react to the scroll position.",
@@ -156,20 +156,20 @@ export const idToComponentMap: Record<DataIds, ComponentType> = {
   colorPicker: ColorPicker,
   animated3D: Animated3DCard,
   circularProgressBar: CircularProgressBar,
-  colorsInterpolate: ColorsInterpolate,
+  darkMode: DarkMode,
   doubleTap: DoubleTap,
   flatList: FlatList,
-  gestureHandler2: GestureHandler2,
+  followGesture: FollowGesture,
   gridMagnification: GridMagnification,
-  introduction: Introduction,
-  lottie: LottieAstronaut,
-  metaBall: Metaball,
+  basics: Basics,
+  lottie: Lottie,
+  fluidBall: FluidBall,
   panGesture: PanGestures,
   pinchGesture: PinchGestures,
   scrollPan: ScrollPan,
-  scrollViewInterpolate: ScrollViewInterpolate,
+  carousel: Carousel,
   themeSwitch: ThemeSwitch,
   clipBackground: ClipBackground,
   // fourierVisualizer: FourierVisualizer,
-  autoCarousel: AutoCarouselExample,
+  autoCarousel: InfiniteAutoScroll,
 };

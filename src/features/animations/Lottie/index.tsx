@@ -4,7 +4,7 @@ import { SafeAreaView, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { AnimatedWrapper } from "./components/AnimatedWrapper";
 import LottieView from "lottie-react-native";
-export const LottieAstronaut = () => {
+export const Lottie = () => {
   const buttonRef = useRef<LottieView>(null);
 
   const onAdd = useCallback(() => {

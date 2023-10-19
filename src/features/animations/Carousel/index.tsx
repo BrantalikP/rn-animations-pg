@@ -8,7 +8,7 @@ import { styles } from "./styles";
 import { Page } from "./components/Page";
 const WORDS = ["Hello", "World", "Reanimated", "2.0"];
 
-export const ScrollViewInterpolate = () => {
+export const Carousel = () => {
   const translateX = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler((event) => {
     translateX.value = event.contentOffset.x;

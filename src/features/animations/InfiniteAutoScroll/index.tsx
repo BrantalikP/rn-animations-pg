@@ -43,7 +43,7 @@ const Slide = ({
   );
 };
 
-export const AutoCarouselExample = () => {
+export const InfiniteAutoScroll = () => {
   return (
     <SafeAreaView style={styles.wrapper}>
         <AutoCarousel interval={5000}>

@@ -35,7 +35,7 @@ const useFollowAnimatedPosition = ({ x, y }: AnimatedPosition) => {
   return { rStyle, followX, followY };
 };
 
-export const GestureHandler2 = () => {
+export const FollowGesture = () => {
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const {
