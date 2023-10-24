@@ -15,7 +15,7 @@ import { Lottie } from "../animations/Lottie";
 import { FluidBall } from "../animations/FluidBall";
 import { Sticky } from "../animations/Sticky";
 import { PinchGestures } from "../animations/PinchGestures";
-import { ScrollPan } from "../animations/Scroll+Pan";
+import { Scroller } from "../animations/Scroller";
 import { Carousel } from "../animations/Carousel";
 import { ThemeSwitch } from "../animations/ThemeSwitch";
 import { FlatList } from "../animations/Flatlist";
@@ -55,7 +55,7 @@ export const data = [
     id: "colorPicker",
     name: "Color Picker",
     description:
-      "This demo shows how Reanimated interpolates a color. Using this functionality we can easily implement this color picker component",
+      "This demo shows how Reanimated interpolates a color. Using this functionality we can easily implement this color picker component.",
     tags: ["Reanimated", "colors"],
   },
   {
@@ -112,7 +112,7 @@ export const data = [
     name: "Sticky",
     description:
       "In this example you can see how to make animation sticky. There is a condition if you drag the square outside of the circle it will stay where it is but if you let it go inside of the circle it will return to the initial position.",
-    tags: ["Reanimated","sticky"],
+    tags: ["Reanimated", "sticky"],
   },
   {
     id: "pinchGesture",
@@ -120,7 +120,13 @@ export const data = [
     description: "A simple example of a pinch gesture in Reanimated.",
     tags: ["Reanimated", "gesture", "pinch"],
   },
-  { id: "scrollPan", name: "Scroll Pan", description: "TODO", tags: [] },
+  {
+    id: "scroller",
+    name: "Scroller",
+    description:
+      "Scroll view implemented in Reanimated. This is a basic example of a gesture based animation and should replicate the behavior of React Native scroll view.",
+    tags: ["Reanimated", "gestures"],
+  },
   {
     id: "carousel",
     name: "Carousel",
@@ -175,7 +181,7 @@ export const idToComponentMap: Record<DataIds, ComponentType> = {
   fluidBall: FluidBall,
   sticky: Sticky,
   pinchGesture: PinchGestures,
-  scrollPan: ScrollPan,
+  scroller: Scroller,
   carousel: Carousel,
   themeSwitch: ThemeSwitch,
   clipBackground: ClipBackground,

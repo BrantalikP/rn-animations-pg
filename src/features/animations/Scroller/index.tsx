@@ -16,7 +16,7 @@ import { styles } from "./styles";
 const titles = ["what's", "up", "mobile", "devs"];
 const MAX_TRANSLATE_X = -PAGE_WIDTH * (titles.length - 1);
 
-export const ScrollPan = () => {
+export const Scroller = () => {
   const translateX = useSharedValue(0);
   const clampedTranslateX = useDerivedValue(() => {
     return Math.max(Math.min(translateX.value, 0), MAX_TRANSLATE_X);
