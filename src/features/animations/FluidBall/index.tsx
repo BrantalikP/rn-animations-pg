@@ -1,8 +1,6 @@
-import { View, Text, useWindowDimensions } from "react-native";
-import { styles } from "./styles";
+import { useWindowDimensions } from "react-native";
 import {
   Blur,
-  Canvas,
   Circle,
   ColorMatrix,
   Group,
@@ -14,11 +12,10 @@ import {
 } from "@shopify/react-native-skia";
 import Touchable, { useGestureHandler } from "react-native-skia-gesture";
 import { useMemo } from "react";
-interface IMetaball {}
 
 const RADIUS = 80;
 
-const Metaball = ({}: IMetaball) => {
+export const FluidBall = () => {
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
   const cx = useValue(windowWidth / 2);
@@ -93,5 +90,3 @@ const Metaball = ({}: IMetaball) => {
     </Touchable.Canvas>
   );
 };
-
-export { Metaball };

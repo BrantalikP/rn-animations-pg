@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, ViewToken } from "react-native";
+import { ViewToken } from "react-native";
 import Animated, {
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
 import { styles } from "./styles";
+import { useIsPreview } from "@/features/browse/hooks";
 
 interface IListItemProps {
   viewableItems: Animated.SharedValue<ViewToken[]>;
@@ -14,6 +15,7 @@ interface IListItemProps {
 }
 const ListItem: React.FC<IListItemProps> = React.memo(
   ({ item, viewableItems }) => {
+    const isPreview = useIsPreview()
     const rStyle = useAnimatedStyle(() => {
       const isVisible = viewableItems.value
         .filter((item) => item.isViewable)
@@ -28,7 +30,7 @@ const ListItem: React.FC<IListItemProps> = React.memo(
       };
     }, []);
 
-    return <Animated.View style={[styles.item, rStyle]} />;
+    return <Animated.View style={[styles.item, isPreview ? {} : rStyle]} />;
   }
 );
 

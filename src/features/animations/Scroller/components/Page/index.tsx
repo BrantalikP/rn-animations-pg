@@ -2,6 +2,7 @@ import React from "react";
 import { Dimensions, StyleSheet, Text } from "react-native";
 import { styles } from "./styles";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import { theme } from "@/theme";
 
 interface PageProps {
   index: number;
@@ -36,6 +37,7 @@ export const Page: React.FC<PageProps> = ({ title, index, translateX }) => {
           fontSize: 70,
           fontWeight: "700",
           letterSpacing: 1.5,
+          color: theme.textPrimary,
           textTransform: "uppercase",
         }}
       >

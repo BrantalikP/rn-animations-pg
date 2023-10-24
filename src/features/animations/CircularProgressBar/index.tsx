@@ -1,13 +1,15 @@
 import { Dimensions, View, Text, TouchableOpacity } from "react-native";
 import Animated, {
+  runOnJS,
   useAnimatedProps,
+  useAnimatedReaction,
   useDerivedValue,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
 import { BACKGROUND_STROKE_COLOR, STROKE_COLOR, styles } from "./styles";
 import Svg, { Circle } from "react-native-svg";
-import { useCallback } from "react";
+import { useCallback, useRef, useState } from "react";
 import { ReText } from "react-native-redash";
 
 const { width, height } = Dimensions.get("window");
@@ -28,8 +30,27 @@ export const CircularProgressBar = () => {
     return `${Math.round(progress.value * 100)}`;
   });
 
+  const buttonText = useSharedValue("Start");
+
+  useAnimatedReaction(
+    () => progress.value,
+    (value, prevValue) => {
+      if (!prevValue) return
+      if (value > prevValue) {
+        buttonText.value = "Decrease";
+      } else if (value < prevValue) {
+        buttonText.value = "Increase";
+      }
+    }
+  );
+
+  const direction = useRef(1);
+
   const onPress = useCallback(() => {
-    progress.value = withTiming(progress.value > 0 ? 0 : 1, { duration: 2000 });
+    progress.value = withTiming(direction.current > 0 ? 1 : 0, {
+      duration: 2000,
+    });
+    direction.current = direction.current * -1;
   }, []);
 
   return (
@@ -57,7 +78,7 @@ export const CircularProgressBar = () => {
         />
       </Svg>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.buttonText}>Start</Text>
+        <ReText style={styles.buttonText} text={buttonText} pointerEvents="box-none" />
       </TouchableOpacity>
     </View>
   );

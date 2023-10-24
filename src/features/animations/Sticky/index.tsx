@@ -15,14 +15,14 @@ type ContextType = {
   translateX: number;
   translateY: number;
 };
-export const PanGestures = () => {
+export const Sticky = () => {
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const panGestureHandler = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     ContextType
   >({
-    onStart: (event, context) => {
+    onStart: (_, context) => {
       context.translateX = translateX.value;
       context.translateY = translateY.value;
     },

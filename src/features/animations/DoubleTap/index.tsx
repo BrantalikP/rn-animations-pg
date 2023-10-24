@@ -51,7 +51,7 @@ export const DoubleTap = () => {
         >
           <Animated.View>
             <ImageBackground
-              source={require("./assets/image.jpg")}
+              source={require("./assets/image.webp")}
               style={styles.image}
             >
               <AnimatedImage
@@ -68,9 +68,6 @@ export const DoubleTap = () => {
                 resizeMode="center"
               />
             </ImageBackground>
-            <Animated.Text style={[styles.guitar, rTextStyle]}>
-              🎸🎸🎸🎸
-            </Animated.Text>
           </Animated.View>
         </TapGestureHandler>
       </TapGestureHandler>

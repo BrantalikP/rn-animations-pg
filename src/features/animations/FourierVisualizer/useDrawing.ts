@@ -15,13 +15,7 @@ export const useDrawing = () => {
   const drawPath = useSharedValue(Skia.Path.Make());
 
   // Ref for the FourierVisualizer component.
-  const ref = useRef<FourierVisualizerRefType>({
-    // Usualy it shouldn't be necessary to define the ref type manually.
-    // But I was getting this TypeError on Fast Refresh:
-    // TypeError: Cannot assign to read-only property 'current', js engine: hermes
-    clear: () => { },
-    draw: () => { },
-  });
+  const ref = useRef<FourierVisualizerRefType | null>(null);
 
   // Opacity value for animation.
   const opacity = useSharedValue(1);
@@ -45,10 +39,14 @@ export const useDrawing = () => {
     []
   );
 
+  const clear = () => {
+    ref.current?.clear?.()
+  }
+
   // Define the pan gesture for drawing.
   const panGesture = Gesture.Pan()
     .onStart(({ x, y }) => {
-      ref.current?.clear();
+      runOnJS(clear)();
       isDrawing.value = false;
       drawPath.value.reset();
       opacity.value = withTiming(1);

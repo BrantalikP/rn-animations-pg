@@ -1,6 +1,6 @@
 import type { SkPath } from "@shopify/react-native-skia";
 import { Path, Skia } from "@shopify/react-native-skia";
-import React, { useCallback, useImperativeHandle } from "react";
+import React, { Ref, useCallback, useImperativeHandle } from "react";
 import {
   Easing,
   cancelAnimation,
@@ -17,8 +17,9 @@ import {
 } from "./utils/fill";
 import { extractEpicycles } from "./utils/extract-epicycles";
 import { computeFFT } from "./utils/fft";
+import { FourierVisualizerRefType } from ".";
 
-export const useVisualizer = ({ ref }) => {
+export const useVisualizer = ({ ref }: { ref: Ref<FourierVisualizerRefType>}) => {
   // Shared value to store epicycles computed from the path
   const epicycles = useSharedValue<ReturnType<typeof extractEpicycles>>([]);
 

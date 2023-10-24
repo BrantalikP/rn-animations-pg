@@ -5,7 +5,7 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from "react-native-reanimated";
-import { data } from "@/features/browse/screens/home/screens/presets";
+import { data } from "@/features/browse/preset";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface IAnimatedList {
@@ -29,6 +29,7 @@ const AnimatedList = ({ data }: IAnimatedList) => {
         data={data}
         keyExtractor={(item) => item.id}
         onScroll={onScroll}
+        nestedScrollEnabled
         numColumns={2}
         scrollEventThrottle={16}
         renderItem={({ item, index }) => {

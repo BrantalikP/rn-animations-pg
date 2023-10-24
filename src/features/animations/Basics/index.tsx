@@ -8,6 +8,7 @@ import Animated, {
   withRepeat,
 } from "react-native-reanimated";
 import { styles } from "./styles";
+import { theme } from "@/theme";
 
 const SIZE = 100;
 
@@ -15,7 +16,7 @@ const handleRotation = (progress: Animated.SharedValue<number>) => {
   "worklet";
   return `${progress.value * 2 * Math.PI}rad`;
 };
-export const Introduction = () => {
+export const Basics = () => {
   const progress = useSharedValue(1);
   const scale = useSharedValue(2);
 
@@ -36,7 +37,7 @@ export const Introduction = () => {
     <View style={styles.container}>
       <Animated.View
         style={[
-          { height: SIZE, width: SIZE, backgroundColor: "blue" },
+          { height: SIZE, width: SIZE, backgroundColor: theme.accent2 },
           reanimatedStyle,
         ]}
       />

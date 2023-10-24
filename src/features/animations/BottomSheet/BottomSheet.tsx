@@ -12,6 +12,7 @@ import {
   BottomSheetView,
 } from "./components/BottomSheetView";
 import { useCallback, useRef } from "react";
+import { theme } from "@/theme";
 
 interface IBottomSheet {}
 
@@ -32,7 +33,7 @@ const BottomSheet = ({}: IBottomSheet) => {
         <StatusBar />
         <TouchableOpacity style={styles.button} onPress={onPress} />
         <BottomSheetView ref={ref}>
-          <View style={{ flex: 1, backgroundColor: "orange" }} />
+          <View style={{ flex: 1, backgroundColor: theme.secondary }} />
         </BottomSheetView>
       </View>
     </GestureHandlerRootView>
