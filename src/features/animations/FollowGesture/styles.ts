@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+
+const { width, height } = Dimensions.get("window");
 
 export const SIZE = 80;
 export const styles = StyleSheet.create({
@@ -12,5 +14,7 @@ export const styles = StyleSheet.create({
     opacity: 0.8,
     backgroundColor: "blue",
     position: "absolute",
+    top: height / 2 - SIZE / 2,
+    left: width / 2 - SIZE / 2,
   },
 });

@@ -29,6 +29,7 @@ const AnimatedList = ({ data }: IAnimatedList) => {
         data={data}
         keyExtractor={(item) => item.id}
         onScroll={onScroll}
+        nestedScrollEnabled
         numColumns={2}
         scrollEventThrottle={16}
         renderItem={({ item, index }) => {

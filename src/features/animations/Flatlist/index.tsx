@@ -8,6 +8,7 @@ const data = new Array(50).fill(0).map((_, index) => ({ id: index }));
 
 export const FlatList = () => {
   const viewableItems = useSharedValue<ViewToken[]>([]);
+
   return (
     <View style={styles.container}>
       <RNFlatList
@@ -17,6 +18,7 @@ export const FlatList = () => {
         }}
         onViewableItemsChanged={useCallback(
           ({ viewableItems: vItems }: { viewableItems: ViewToken[] }) => {
+            // to disable animation on the preview screen
             viewableItems.value = vItems;
           },
           []

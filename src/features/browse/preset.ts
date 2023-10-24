@@ -13,7 +13,7 @@ import { GridMagnification } from "../animations/GridMagnificationSkia";
 import { Basics } from "../animations/Basics";
 import { Lottie } from "../animations/Lottie";
 import { FluidBall } from "../animations/FluidBall";
-import { PanGestures } from "../animations/PanGestures";
+import { Sticky } from "../animations/Sticky";
 import { PinchGestures } from "../animations/PinchGestures";
 import { ScrollPan } from "../animations/Scroll+Pan";
 import { Carousel } from "../animations/Carousel";
@@ -84,13 +84,14 @@ export const data = [
     name: "Follow Gesture",
     description:
       "In this example you can see how you can implement animation that are dependent on each other. When you start dragging the blue ball the red and green ones will follow it.",
-    tags: ["Reanimated, Gestures", "drag"],
+    tags: ["Reanimated", "Gestures", "drag"],
   },
   {
     id: "gridMagnification",
     name: "Grid Magnification",
-    description: "TODO",
-    tags: [],
+    description:
+      "A recreation of a Swift UI animation by Philip Davis. You can see how you can create 3D looking effects just by using Skia.",
+    tags: ["Skia", "grid", "magnification"],
   },
   {
     id: "lottie",
@@ -106,7 +107,13 @@ export const data = [
       "This is an example of clever use of blur effect to create fluid like animation by distortion of the view. By using a blur effect over a defined layer you can achieve a convincing fluid like effect.",
     tags: ["Skia", "blur"],
   },
-  { id: "panGesture", name: "Pan Gesture", description: "TODO", tags: [] },
+  {
+    id: "sticky",
+    name: "Sticky",
+    description:
+      "In this example you can see how to make animation sticky. There is a condition if you drag the square outside of the circle it will stay where it is but if you let it go inside of the circle it will return to the initial position.",
+    tags: ["Reanimated","sticky"],
+  },
   {
     id: "pinchGesture",
     name: "Pinch Gesture",
@@ -131,8 +138,9 @@ export const data = [
   {
     id: "clipBackground",
     name: "Clip Background",
-    description: "An example of how to use clipPath in Skia to achieve interesting effects.",
-    tags: ["Skia","clipPath"],
+    description:
+      "An example of how to use clipPath in Skia to achieve interesting effects.",
+    tags: ["Skia", "clipPath"],
   },
   // This one is kind of broken and I don't even really know what it is :D
   // {
@@ -144,8 +152,9 @@ export const data = [
   {
     id: "autoCarousel",
     name: "Infinite Auto Scroll",
-    description: "A more complex example of a scroll effect to implement an infinite carousel. By copying the first and last item in the list and using animated reactions to jump between the items we can achieve an effect that seems like the carousel is infinitely scrollable.",
-    tags: ["Reanimated","scroll","interpolation"],
+    description:
+      "A more complex example of a scroll effect to implement an infinite carousel. By copying the first and last item in the list and using animated reactions to jump between the items we can achieve an effect that seems like the carousel is infinitely scrollable.",
+    tags: ["Reanimated", "scroll", "interpolation"],
   },
 ] as const;
 
@@ -164,7 +173,7 @@ export const idToComponentMap: Record<DataIds, ComponentType> = {
   basics: Basics,
   lottie: Lottie,
   fluidBall: FluidBall,
-  panGesture: PanGestures,
+  sticky: Sticky,
   pinchGesture: PinchGestures,
   scrollPan: ScrollPan,
   carousel: Carousel,
