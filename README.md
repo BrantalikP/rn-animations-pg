@@ -2,7 +2,9 @@
 
 This project is build for Expo GO, so you shouldn't need any native dependencies to run it.
 
-You can simply start the development server with:
+First install all packages using `yarn`.
+
+Then You can simply start the development server with:
 `yarn start`
 
 Then you can install the expo go app on your phone and scan the QR code to run the app.
